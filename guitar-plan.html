@@ -8,11 +8,12 @@
         :root {
             --bg: #121214;
             --card: #1e1e21;
-            --accent: #e5c07b;
+            --accent: #e5c07b; 
             --text: #abb2bf;
             --header-text: #ffffff;
             --secondary: #5c6370;
             --border: #3e4451;
+            --highlight: #2c2c30;
         }
 
         body {
@@ -22,6 +23,7 @@
             margin: 0;
             padding: 15px;
             line-height: 1.6;
+            -webkit-tap-highlight-color: transparent;
         }
 
         header {
@@ -33,7 +35,7 @@
         }
 
         h1 { color: var(--header-text); margin: 0; font-weight: 300; letter-spacing: 1px; }
-        .subtitle { color: var(--accent); font-size: 0.9em; text-transform: uppercase; letter-spacing: 2px; margin-top: 10px; }
+        .subtitle { color: var(--accent); font-size: 0.8em; text-transform: uppercase; letter-spacing: 2px; margin-top: 10px; }
 
         .tabs {
             display: flex;
@@ -48,7 +50,7 @@
         }
 
         .tab-link {
-            padding: 10px 15px;
+            padding: 10px 18px;
             cursor: pointer;
             border: none;
             background: none;
@@ -67,7 +69,7 @@
         .tab-content {
             display: none;
             padding: 20px 0;
-            animation: fadeIn 0.4s ease;
+            animation: fadeIn 0.3s ease;
         }
 
         @keyframes fadeIn {
@@ -85,48 +87,61 @@
             border: 1px solid var(--border);
         }
 
-        h3 { color: var(--accent); margin-top: 0; font-weight: 500; }
+        h3 { color: var(--accent); margin-top: 0; font-weight: 500; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
         
         ul { padding-left: 18px; }
         li { margin-bottom: 8px; }
 
         a { color: var(--accent); text-decoration: underline; }
 
-        .chord-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 15px;
-        }
-
-        .chord-box {
-            background: #282c34;
-            padding: 15px;
+        /* Chord Table Styling */
+        .chord-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background: var(--highlight);
             border-radius: 8px;
-            border: 1px solid var(--border);
+            overflow: hidden;
         }
 
-        .chord-name { color: var(--header-text); font-weight: bold; font-size: 1.2em; display: block; margin-bottom: 10px; border-bottom: 1px solid #444; padding-bottom: 5px; }
-        .chord-fingers { color: var(--accent); font-family: monospace; font-size: 0.95em; display: block; margin-bottom: 8px; }
-        .finger-guide { font-size: 0.8em; color: var(--text); }
+        .chord-table th, .chord-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
 
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85em; }
-        th, td { border: 1px solid var(--border); padding: 10px; text-align: center; }
-        th { background: #282c34; color: var(--accent); }
+        .finger-guide {
+            font-family: monospace;
+            background: #121214;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--accent);
+        }
+
+        .finger-map {
+            font-size: 0.85em;
+            color: var(--secondary);
+            margin-top: 10px;
+            display: block;
+        }
+
+        table.progress { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85em; }
+        .progress th, .progress td { border: 1px solid var(--border); padding: 10px; text-align: center; }
+        .progress th { background: #282c34; color: var(--accent); }
 
         .resource-item { margin-bottom: 25px; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
-        .resource-item:last-child { border-bottom: none; }
-        .res-desc { font-size: 0.9em; color: var(--secondary); margin-top: 5px; display: block; }
+        .res-desc { font-size: 0.85em; color: var(--secondary); margin-top: 5px; display: block; }
 
     </style>
 </head>
 <body>
 
 <header>
-    <h1>The Artist's Journey</h1>
-    <div class="subtitle">2-Month Electric Guitar Roadmap</div>
+    <h1>The 60-Day Roadmap</h1>
+    <div class="subtitle">Indie-Folk Electric Guitar</div>
 </header>
 
-<div class="tabs" id="tabBar">
+<div class="tabs">
     <button class="tab-link active" onclick="openTab(event, 'Schedule')">Schedule</button>
     <button class="tab-link" onclick="openTab(event, 'Phases')">Phases</button>
     <button class="tab-link" onclick="openTab(event, 'Chords')">Chords</button>
@@ -136,17 +151,17 @@
 
 <div id="Schedule" class="tab-content active-content">
     <div class="card">
-        <h3>The 9-5 Practice Block</h3>
+        <h3>Daily Session (30 Mins)</h3>
         <ul>
-            <li><strong>00-05m:</strong> Tuning (Crucial for ear training).</li>
-            <li><strong>05-10m:</strong> Spider Walk (Fret 5-8 warm-up).</li>
-            <li><strong>10-20m:</strong> The "Core Drill" (1-min chord changes).</li>
-            <li><strong>20-30m:</strong> The Song (Reward yourself).</li>
+            <li><strong>00-05m:</strong> Tuning & String Check</li>
+            <li><strong>05-10m:</strong> Spider Walk (Fret 5-8)</li>
+            <li><strong>10-20m:</strong> Core Skill / 1-Min Changes</li>
+            <li><strong>20-30m:</strong> Song Repertoire</li>
         </ul>
     </div>
     <div class="card">
-        <h3>1-Minute Progress Tracker</h3>
-        <table>
+        <h3>Weekly Tracker</h3>
+        <table class="progress">
             <tr><th>Week</th><th>Pair</th><th>Goal</th></tr>
             <tr><td>1-2</td><td>A ↔ D</td><td>20 Switches</td></tr>
             <tr><td>3-4</td><td>G ↔ C</td><td>30 Switches</td></tr>
@@ -158,25 +173,93 @@
 
 <div id="Phases" class="tab-content">
     <div class="card">
-        <h3>Phase 1: Foundations (Weeks 1-2)</h3>
-        <p>Learn A, D, and E Major. Master the "Air Change" (hands off/on neck).</p>
+        <h3>Phase 1: Foundations (Wks 1-2)</h3>
+        <p>A, D, E Major shapes. Focus on thumb position and arching fingers.</p>
     </div>
     <div class="card">
-        <h3>Phase 2: Rhythm (Weeks 3-4)</h3>
-        <p>Learn G and C Major. Focus on the "D-D-U-D-U" Folk Strum.</p>
+        <h3>Phase 2: Rhythm Engine (Wks 3-4)</h3>
+        <p>G & C Major. Practice the "Folk Strum" (D-D-U-D-U) on muted strings.</p>
     </div>
     <div class="card">
-        <h3>Phase 3: Mood & Minors (Weeks 5-6)</h3>
-        <p>Learn Am and Em. Start Hozier's <em>Work Song</em>.</p>
+        <h3>Phase 3: Dark Folk (Wks 5-6)</h3>
+        <p>Am & Em. Begin Hozier's <em>Work Song</em>. Focus on palm muting.</p>
     </div>
     <div class="card">
-        <h3>Phase 4: Full Mastery (Weeks 7-8)</h3>
-        <p><em>The Stable Song</em>. Record yourself and check for dead notes.</p>
+        <h3>Phase 4: Performance (Wks 7-8)</h3>
+        <p><em>The Stable Song</em>. Practice with YouTube set to 0.75x speed.</p>
     </div>
 </div>
 
 <div id="Chords" class="tab-content">
     <div class="card">
-        <h3>The Indie-Folk Starter Pack</h3>
-        <div class="chord-grid">
-            <div class="chord-box">
+        <h3>Finger Placement Guide</h3>
+        <table class="chord-table">
+            <tr><th>Chord</th><th>Frets</th><th>Fingers</th></tr>
+            <tr><td><strong>G Major</strong></td><td><span class="finger-guide">320003</span></td><td>Middle-Index-Pinky</td></tr>
+            <tr><td><strong>C Major</strong></td><td><span class="finger-guide">X32010</span></td><td>Ring-Middle-Index</td></tr>
+            <tr><td><strong>D Major</strong></td><td><span class="finger-guide">XX0232</span></td><td>Index-Ring-Middle</td></tr>
+            <tr><td><strong>A Major</strong></td><td><span class="finger-guide">X02220</span></td><td>Idx-Mid-Ring (stacked)</td></tr>
+            <tr><td><strong>E Major</strong></td><td><span class="finger-guide">022100</span></td><td>Mid-Ring-Index</td></tr>
+            <tr><td><strong>Am</strong></td><td><span class="finger-guide">X02210</span></td><td>Mid-Ring-Index</td></tr>
+            <tr><td><strong>Em</strong></td><td><span class="finger-guide">022000</span></td><td>Middle-Ring</td></tr>
+        </table>
+        <span class="finger-map"><strong>Strings:</strong> E A D G B e (Thickest to Thinnest)</span>
+    </div>
+</div>
+
+<div id="Notes" class="tab-content">
+    <div class="card">
+        <h3>Electric Guitar Tips</h3>
+        <ul>
+            <li><strong>Pickup:</strong> Switch to "Neck" (Top Position).</li>
+            <li><strong>Reverb:</strong> Set to level 4 for that airy indie vibe.</li>
+            <li><strong>Pressure:</strong> Electric strings are soft. Press <em>just</em> enough to ring.</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h3>Teacher's Wisdom</h3>
+        <p><strong>Desk Practice:</strong> Keep a stand by your 9-5 desk. Play 3 chords every time you finish a task.</p>
+        <p><strong>Anchor Fingers:</strong> When moving G to C, keep your shape consistent as you shift strings.</p>
+    </div>
+</div>
+
+<div id="Resources" class="tab-content">
+    <div class="card">
+        <div class="resource-item">
+            <a href="https://www.youtube.com/watch?v=6mA0YK34TvA">The Stable Song - Chord Guide</a>
+            <span class="res-desc">Gregory Alan Isakov. Uses G, C, D, Em.</span>
+        </div>
+        <div class="resource-item">
+            <a href="https://www.youtube.com/watch?v=BpAbnN9wMaM">Hozier - Work Song</a>
+            <span class="res-desc">Focus on steady rhythm and Am/Em changes.</span>
+        </div>
+        <div class="resource-item">
+            <a href="https://www.youtube.com/watch?v=b2XXzcQhPvc">Paul Davids: Dexterity</a>
+            <span class="res-desc">Mayer-style exercises for finger independence.</span>
+        </div>
+        <div class="resource-item">
+            <a href="https://www.youtube.com/watch?v=Zv3djMreJvI">Folk Strumming Patterns</a>
+            <span class="res-desc">Master the driving rhythm of Mumford & Sons.</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tab-link");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+        window.scrollTo(0, 0);
+    }
+</script>
+
+</body>
+</html>
