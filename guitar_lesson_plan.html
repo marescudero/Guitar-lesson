@@ -1,0 +1,504 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+.hero { padding: 1.5rem 0 1rem; border-bottom: 0.5px solid var(--color-border-tertiary); margin-bottom: 1.25rem; }
+.hero-label { font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--color-text-secondary); margin-bottom: 6px; }
+.hero h1 { font-size: 20px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+.hero p { font-size: 13px; color: var(--color-text-secondary); }
+.artists { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.artist-pill { font-size: 11px; padding: 3px 10px; border-radius: 20px; background: var(--color-background-info); color: var(--color-text-info); border: 0.5px solid var(--color-border-info); font-weight: 500; }
+.phase-nav { display: flex; gap: 0; border-bottom: 0.5px solid var(--color-border-tertiary); margin-bottom: 1.25rem; overflow-x: auto; scrollbar-width: none; }
+.phase-nav::-webkit-scrollbar { display: none; }
+.phase-btn { flex-shrink: 0; padding: .7rem 1rem; font-size: 13px; font-weight: 500; color: var(--color-text-secondary); background: none; border: none; cursor: pointer; border-bottom: 2px solid transparent; transition: all .2s; white-space: nowrap; font-family: var(--font-sans); }
+.phase-btn.active { color: var(--color-text-info); border-bottom-color: var(--color-border-info); }
+.phase-content { display: none; }
+.phase-content.visible { display: block; }
+.phase-header { background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 1.25rem; }
+.phase-header h2 { font-size: 16px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+.phase-header p { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: .75rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-size: 11px; padding: 3px 10px; border-radius: 20px; background: var(--color-background-primary); color: var(--color-text-secondary); border: 0.5px solid var(--color-border-secondary); font-weight: 500; }
+.chip.accent { background: var(--color-background-warning); color: var(--color-text-warning); border-color: var(--color-border-warning); }
+.section-heading { font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--color-text-secondary); margin: 1.25rem 0 .75rem; display: flex; align-items: center; gap: 8px; }
+.dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.dot-skill { background: var(--color-text-info); }
+.dot-theory { background: var(--color-text-success); }
+.dot-song { background: var(--color-text-warning); }
+.dot-practice { background: var(--color-text-danger); }
+.lesson-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 8px; }
+.lesson-card h3 { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+.lesson-card p { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 8px; }
+.lesson-card ul { padding-left: 1.1rem; margin-bottom: 8px; }
+.lesson-card li { font-size: 13px; color: var(--color-text-secondary); line-height: 1.7; }
+.lesson-card li strong { color: var(--color-text-primary); font-weight: 500; }
+.link-btn { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 500; color: var(--color-text-info); text-decoration: none; padding: 4px 10px; border-radius: var(--border-radius-md); background: var(--color-background-info); border: 0.5px solid var(--color-border-info); margin-top: 4px; margin-right: 6px; }
+.song-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: .85rem 1.25rem; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 12px; }
+.song-num { width: 28px; height: 28px; border-radius: 8px; background: var(--color-background-warning); color: var(--color-text-warning); font-size: 13px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.song-name { font-size: 14px; font-weight: 500; color: var(--color-text-primary); }
+.song-artist { font-size: 12px; color: var(--color-text-secondary); margin-top: 1px; }
+.song-why { font-size: 12px; color: var(--color-text-secondary); margin-top: 4px; line-height: 1.5; }
+.song-tag { display: inline-block; font-size: 10px; font-weight: 500; padding: 2px 7px; border-radius: 10px; margin-top: 5px; }
+.tag-easy { background: var(--color-background-success); color: var(--color-text-success); }
+.tag-mid { background: var(--color-background-warning); color: var(--color-text-warning); }
+.tag-hard { background: var(--color-background-danger); color: var(--color-text-danger); }
+.tip-card { background: var(--color-background-success); border: 0.5px solid var(--color-border-success); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-top: 1rem; font-size: 13px; color: var(--color-text-success); line-height: 1.6; }
+.warning-card { background: var(--color-background-warning); border: 0.5px solid var(--color-border-warning); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-top: 1rem; font-size: 13px; color: var(--color-text-warning); line-height: 1.6; }
+.info-card { background: var(--color-background-info); border: 0.5px solid var(--color-border-info); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-top: 1rem; font-size: 13px; color: var(--color-text-info); line-height: 1.6; }
+.progress-checklist { display: flex; flex-direction: column; gap: 8px; }
+.check-item { display: flex; align-items: flex-start; gap: 10px; background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: .75rem 1rem; cursor: pointer; transition: background .15s; }
+.check-item:hover { background: var(--color-background-secondary); }
+.check-box { width: 18px; height: 18px; border-radius: 4px; border: 1.5px solid var(--color-border-secondary); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: all .15s; }
+.check-item.done .check-box { background: var(--color-background-success); border-color: var(--color-border-success); }
+.check-item.done .check-box::after { content: ''; width: 5px; height: 9px; border: 2px solid var(--color-text-success); border-top: none; border-left: none; transform: rotate(45deg) translateY(-1px); display: block; }
+.check-item.done .check-label { color: var(--color-text-secondary); text-decoration: line-through; }
+.check-label { font-size: 13px; color: var(--color-text-primary); line-height: 1.5; }
+.guitar-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1rem; }
+.guitar-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: .85rem 1rem; }
+.guitar-card h4 { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+.guitar-card p { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+.schedule-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; margin-bottom: 1rem; }
+.sched-day { border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); padding: 6px 4px; text-align: center; }
+.sched-day.practice { background: var(--color-background-info); border-color: var(--color-border-info); }
+.sched-day.rest { background: var(--color-background-secondary); }
+.sched-name { font-size: 9px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--color-text-secondary); }
+.sched-type { font-size: 10px; color: var(--color-text-primary); margin-top: 3px; line-height: 1.3; }
+.tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.tool-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: .85rem 1rem; }
+.tool-card h4 { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 3px; }
+.tool-card p { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+.free-badge { display: inline-block; font-size: 10px; font-weight: 500; padding: 1px 6px; border-radius: 8px; background: var(--color-background-success); color: var(--color-text-success); margin-left: 5px; }
+.paid-badge { display: inline-block; font-size: 10px; font-weight: 500; padding: 1px 6px; border-radius: 8px; background: var(--color-background-warning); color: var(--color-text-warning); margin-left: 5px; }
+</style>
+
+<div class="hero">
+  <div class="hero-label">Personalized guitar lesson plan</div>
+  <h1>From zero to playing songs you love</h1>
+  <p>Complete beginner · Electric + acoustic · Folk, indie, alternative rock</p>
+  <div class="artists">
+    <span class="artist-pill">Hozier</span>
+    <span class="artist-pill">Bon Iver</span>
+    <span class="artist-pill">Mumford & Sons</span>
+    <span class="artist-pill">Role Model</span>
+    <span class="artist-pill">Gregory Alan Isakov</span>
+    <span class="artist-pill">John Mayer</span>
+  </div>
+</div>
+
+<div class="phase-nav">
+  <button class="phase-btn active" onclick="showPhase('p1',this)">Phase 1 — Start</button>
+  <button class="phase-btn" onclick="showPhase('p2',this)">Phase 2 — Build</button>
+  <button class="phase-btn" onclick="showPhase('p3',this)">Phase 3 — Expand</button>
+  <button class="phase-btn" onclick="showPhase('songs',this)">Song roadmap</button>
+  <button class="phase-btn" onclick="showPhase('feedback',this)">Feedback + tools</button>
+  <button class="phase-btn" onclick="showPhase('milestones',this)">Milestones</button>
+</div>
+
+<!-- PHASE 1 -->
+<div id="p1" class="phase-content visible">
+  <div class="phase-header">
+    <h2>Phase 1 — Foundation (weeks 1–4)</h2>
+    <p>The goal is not to sound good yet. The goal is to build the physical habits — finger placement, posture, and switching between two chords — so that by week 4 your hands start doing things automatically. This is where most people quit. Don't.</p>
+    <div class="chips">
+      <span class="chip accent">Weeks 1–4</span>
+      <span class="chip">15–20 min/day</span>
+      <span class="chip">Acoustic guitar</span>
+      <span class="chip">5–6 days/week</span>
+    </div>
+  </div>
+
+  <div class="section-heading"><span class="dot dot-skill"></span>Setup — before you play a single note</div>
+  <div class="guitar-row">
+    <div class="guitar-card"><h4>Which guitar to start on</h4><p>Use your acoustic for Phase 1. It builds finger strength faster. Electric feels easier but won't develop calluses or strength as efficiently.</p></div>
+    <div class="guitar-card"><h4>Get in tune every session</h4><p>Download GuitarTuna (free). Always tune before playing. Playing out of tune trains your ear incorrectly from day one.</p></div>
+    <div class="guitar-card"><h4>Posture</h4><p>Sit up straight. Guitar rests on your right leg (if right-handed). Fret hand thumb behind the neck, not over the top.</p></div>
+    <div class="guitar-card"><h4>Fingertips will hurt</h4><p>This is normal and lasts 2–3 weeks. Play through it — calluses are forming. Shorter daily sessions hurt less than long ones.</p></div>
+  </div>
+
+  <div class="section-heading"><span class="dot dot-skill"></span>Week 1–2 — Your first chords</div>
+  <div class="lesson-card">
+    <h3>Learn Em and Am first (not G, C, D)</h3>
+    <p>Most beginner plans start with G, C, and D. These are harder. Em (two fingers) and Am (three fingers) are simpler shapes and actually appear in nearly every song you like. Starting here means you play real music faster.</p>
+    <ul>
+      <li><strong>Em:</strong> Middle and ring finger on strings 5 and 4, 2nd fret. Strum all 6 strings.</li>
+      <li><strong>Am:</strong> Index on string 2, middle on string 4, ring on string 3 — all 2nd fret. Strum strings 5 to 1.</li>
+      <li>Practice switching between Em and Am for 5 minutes daily. Count "1-2-3-4" and switch on beat 1.</li>
+    </ul>
+    <a class="link-btn" href="https://www.youtube.com/watch?v=1q-CVaJPON8" target="_blank">▶ Em and Am chord tutorial (Justin Guitar)</a>
+  </div>
+
+  <div class="lesson-card">
+    <h3>Strumming — down strums only to start</h3>
+    <p>For the first two weeks, only strum downward. One strum per beat. Four beats per chord. This sounds boring but it forces your fretting hand to be clean before your strumming hand gets complicated.</p>
+    <ul>
+      <li>Count out loud: "1 — 2 — 3 — 4" as you strum</li>
+      <li>Every note in the chord should ring clearly. If one buzzes, stop and adjust your finger position</li>
+      <li>Use a metronome app (Metronome Beats — free) at 60 BPM to start</li>
+    </ul>
+    <a class="link-btn" href="https://www.youtube.com/watch?v=hqatEMHzGWs" target="_blank">▶ Beginner strumming fundamentals</a>
+  </div>
+
+  <div class="section-heading"><span class="dot dot-skill"></span>Week 3–4 — Add G and C</div>
+  <div class="lesson-card">
+    <h3>G and C chords + your first chord progressions</h3>
+    <p>By week 3 your fingers are stronger and Em/Am switching is more automatic. Now add G and C to unlock the most common progressions in folk and indie music.</p>
+    <ul>
+      <li><strong>G chord:</strong> Ring finger string 1 (3rd fret), middle finger string 5 (2nd fret), pinky string 6 (3rd fret)</li>
+      <li><strong>C chord:</strong> Ring finger string 5 (3rd fret), middle finger string 4 (2nd fret), index finger string 2 (1st fret)</li>
+      <li>Practice the G → C → Am → Em progression — this is the backbone of most Hozier and Mumford songs</li>
+    </ul>
+    <a class="link-btn" href="https://www.youtube.com/watch?v=9G5JkCF6F4M" target="_blank">▶ G and C chord lesson</a>
+    <a class="link-btn" href="https://www.youtube.com/watch?v=3pNMSInABos" target="_blank">▶ 4-chord progression practice</a>
+  </div>
+
+  <div class="section-heading"><span class="dot dot-theory"></span>Music theory — week 1–4</div>
+  <div class="lesson-card">
+    <h3>The musical alphabet and what a chord actually is</h3>
+    <p>You don't need to read sheet music. But understanding these three things will make everything else click faster.</p>
+    <ul>
+      <li><strong>The musical alphabet:</strong> A B C D E F G — then it repeats. That's all of Western music.</li>
+      <li><strong>What a note is:</strong> Each fret on your guitar = one step (semitone). Moving up one fret raises the pitch by one semitone.</li>
+      <li><strong>What a chord is:</strong> Three or more notes played together. Em contains the notes E, G, and B. That's it.</li>
+      <li><strong>Why this matters for you:</strong> When you learn that "Hozier mostly plays in the key of G," you'll immediately know which chords are most likely to appear in his songs.</li>
+    </ul>
+    <a class="link-btn" href="https://www.youtube.com/watch?v=rgaTLrZGlk0" target="_blank">▶ Music theory for guitar beginners</a>
+  </div>
+
+  <div class="section-heading"><span class="dot dot-song"></span>Your first song — week 3</div>
+  <div class="song-card">
+    <div class="song-num">1</div>
+    <div>
+      <div class="song-name">Work Song — Hozier</div>
+      <div class="song-artist">Hozier · Key of Am</div>
+      <div class="song-why">Uses only Am, G, C, and F (you'll add F in week 4). The strumming pattern is simple and slow. This is the ideal first real song for your taste — you'll recognize it immediately and want to keep playing it.</div>
+      <span class="song-tag tag-easy">Beginner</span>
+      <br>
+      <a class="link-btn" href="https://www.youtube.com/watch?v=jAPmkfVWMXk" target="_blank">▶ Work Song beginner tutorial</a>
+    </div>
+  </div>
+
+  <div class="tip-card"><strong>Phase 1 anti-quitting strategy:</strong> Record yourself playing Em and Am on day 1. Record again at the end of week 4. The difference will be dramatic and will be the clearest evidence of progress you can get. This is how you confirm you're improving when no teacher is watching.</div>
+</div>
+
+<!-- PHASE 2 -->
+<div id="p2" class="phase-content">
+  <div class="phase-header">
+    <h2>Phase 2 — Build (weeks 5–10)</h2>
+    <p>You have four open chords. Now we expand your chord vocabulary, introduce fingerpicking — the defining sound of Bon Iver, Gregory Alan Isakov, and early John Mayer — and start understanding why songs sound the way they do.</p>
+    <div class="chips">
+      <span class="chip accent">Weeks 5–10</span>
+      <span class="chip">20–30 min/day</span>
+      <span class="chip">Acoustic + electric</span>
+      <span class="chip">5 days/week</span>
+    </div>
+  </div>
+
+  <div class="section-heading"><span class="dot dot-skill"></span>New chords — weeks 5–6</div>
+  <div class="lesson-card">
+    <h3>F chord (the wall every beginner hits) + D chord</h3>
+    <p>The F chord requires a barre — pressing one finger across all strings. This is hard. Expect 2–3 weeks before it sounds clean. Do not skip it or use a shortcut shape permanently.</p>
+    <ul>
+      <li><strong>Start with Fmaj7:</strong> Index on strings 1 and 2 (1st fret), middle on string 3 (2nd fret). This is the "easy F" and sounds beautiful in folk music.</li>
+      <li><strong>Full F barre chord:</strong> Index bars all strings at fret 1, ring on string 5 (3rd fret), pinky on string 4 (3rd fret), middle on string 3 (2nd fret).</li>
+      <li><strong>D chord:</strong> Index on string 3 (2nd fret), middle on string 1 (2nd fret), ring on string 2 (3rd fret). Strum strings 4 to 1 only.</li>
+    </ul>
+    <a class="link-btn" href="https://www.youtube.com/watch?v=BsBTMQH3fwA" target="_blank">▶ How to play the F chord (Justin Guitar)</a>
+    <a class="link-btn" href="https://www.youtube.com/watch?v=gkxFt-SYXBM" target="_blank">▶ D chord tutorial</a>
+  </div>
+
+  <div class="section-heading"><span class="dot dot-skill"></span>Fingerpicking — weeks 6–8</div>
+  <div class="lesson-card">
+    <h3>Travis picking pattern — the sound of your favorite artists</h3>
+    <p>Fingerpicking is what makes Bon Iver, Gregory Alan Isakov, and John Mayer's acoustic work sound like that. It's not as hard as it looks, but it requires your thumb and fingers to become independent of each other.</p>
+    <ul>
+      <li><strong>Thumb (p):</strong> Plays the bass strings (4, 5, 6) — alternates between them</li>
+      <li><strong>Index (i):</strong> Plays string 3</li>
+      <li><strong>Middle (m):</strong> Plays string 2</li>
+      <li><strong>Ring (a):</strong> Plays string 1</li>
+      <li>Basic pattern on Am: Thumb-5, index-3, middle-2, ring-1, thumb-4, index-3, middle-2, ring-1</li>
+      <li>Practice at 50 BPM until automatic, then increase 5 BPM per session</li>
+    </ul>
+    <a class="link-btn" href="https://www.youtube.com/watch?v=kMDFxFIMFsQ" target="_blank">▶ Fingerpicking for beginners</a>
+    <a class="link-btn" href="https://www.youtube.com/watch?v=R1OVGiWJ1mU" target="_blank">▶ Travis picking tutorial</a>
+  </div>
+
+  <div class="section-heading"><span class="dot dot-skill"></span>Electric guitar intro — weeks 8–10</div>
+  <div class="lesson-card">
+    <h3>Switching to electric + basic lead playing</h3>
+    <p>Electric guitar opens up Role Model and John Mayer territory. The techniques are different — lighter touch, thinner strings, and now amp tone matters.</p>
+    <ul>
+      <li><strong>Lower action:</strong> Electric guitar strings are much easier to press. You'll immediately notice the difference.</li>
+      <li><strong>Pentatonic scale — box 1:</strong> This is the most important scale in rock, blues, and indie. John Mayer plays 90% of his solos from this one shape.</li>
+      <li><strong>Power chords:</strong> Two-finger chords used constantly in alternative rock. Root note + 5th. Move the same shape anywhere on the neck.</li>
+      <li><strong>Basic bends:</strong> Push a string sideways to raise its pitch. This is the defining gesture of electric guitar expression.</li>
+    </ul>
+    <a class="link-btn" href="https://www.youtube.com/watch?v=dn5C6GS2RCE" target="_blank">▶ Minor pentatonic scale lesson</a>
+    <a class="link-btn" href="https://www.youtube.com/watch?v=K6N_4JdSKlQ" target="_blank">▶ Power chord tutorial</a>
+  </div>
+
+  <div class="section-heading"><span class="dot dot-theory"></span>Music theory — weeks 5–10</div>
+  <div class="lesson-card">
+    <h3>Keys, scales, and why chords belong together</h3>
+    <p>This is the theory that explains why the G → C → Am → Em progression sounds so natural. It's because all four chords live in the same key.</p>
+    <ul>
+      <li><strong>The major scale:</strong> 7 notes with a specific pattern of gaps (W-W-H-W-W-W-H). Every key follows this pattern starting from a different note.</li>
+      <li><strong>Chords in a key:</strong> In the key of G, the natural chords are G, Am, Bm, C, D, Em, F#dim. This is why those chords sound right together.</li>
+      <li><strong>The I-IV-V-I progression:</strong> The most common in all of Western music. In G: G → C → D → G. You'll hear this in half your playlist.</li>
+      <li><strong>Relative minor:</strong> Every major key has a relative minor that uses the same notes. G major's relative minor is Em. This is why G and Em always sound good together.</li>
+    </ul>
+    <a class="link-btn" href="https://www.youtube.com/watch?v=kvGYl8SQBJ0" target="_blank">▶ Keys and scales explained simply</a>
+  </div>
+
+  <div class="section-heading"><span class="dot dot-song"></span>Phase 2 songs</div>
+  <div class="song-card">
+    <div class="song-num">2</div>
+    <div>
+      <div class="song-name">Skinny Love — Bon Iver</div>
+      <div class="song-artist">Bon Iver · Open Bm tuning (or play in standard)</div>
+      <div class="song-why">Beautiful fingerpicking song that showcases exactly what you just learned. Standard tuning version is accessible and sounds stunning on acoustic.</div>
+      <span class="song-tag tag-mid">Intermediate</span>
+      <br><a class="link-btn" href="https://www.youtube.com/watch?v=s8sRoXNBfkA" target="_blank">▶ Skinny Love tutorial</a>
+    </div>
+  </div>
+  <div class="song-card">
+    <div class="song-num">3</div>
+    <div>
+      <div class="song-name">The Stable Song — Gregory Alan Isakov</div>
+      <div class="song-artist">Gregory Alan Isakov · Key of G</div>
+      <div class="song-why">Fingerpicked folk song using G, C, D, and Em. One of the most beautiful examples of how simple chords can make emotionally powerful music.</div>
+      <span class="song-tag tag-mid">Intermediate</span>
+      <br><a class="link-btn" href="https://www.youtube.com/watch?v=dKJ0IfvEFsI" target="_blank">▶ Stable Song tutorial</a>
+    </div>
+  </div>
+
+  <div class="tip-card"><strong>Phase 2 anti-boredom strategy:</strong> Every time you learn a new chord or technique, immediately find it in a song you love and play that song. Theory is only motivating when it unlocks music you actually want to play.</div>
+</div>
+
+<!-- PHASE 3 -->
+<div id="p3" class="phase-content">
+  <div class="phase-header">
+    <h2>Phase 3 — Expand (weeks 11–20)</h2>
+    <p>Barre chords, more advanced strumming, capo use, basic soloing, and the theory to understand any song by ear. By the end of Phase 3 you'll be able to look up a chord chart and play almost any song in your genre within a few practice sessions.</p>
+    <div class="chips">
+      <span class="chip accent">Weeks 11–20</span>
+      <span class="chip">30–45 min/day</span>
+      <span class="chip">Both guitars</span>
+      <span class="chip">5 days/week</span>
+    </div>
+  </div>
+
+  <div class="section-heading"><span class="dot dot-skill"></span>Barre chords — weeks 11–13</div>
+  <div class="lesson-card">
+    <h3>Full barre chords — the key to playing in any key</h3>
+    <p>A barre chord is a moveable chord shape. Learn the shape once, slide it to any fret, and you have a new chord. This is what unlocks the entire fretboard.</p>
+    <ul>
+      <li><strong>E-shape barre chord:</strong> Based on the open E chord shape, barred at any fret. At fret 3 = G major. At fret 5 = A major.</li>
+      <li><strong>A-shape barre chord:</strong> Based on the open A chord shape. At fret 3 = C major. At fret 5 = D major.</li>
+      <li><strong>Minor versions:</strong> Same shapes using Em and Am as the base. These are equally important.</li>
+      <li>Barre chords will buzz for weeks. This is normal. Squeeze harder, place your index closer to the fret, and practice 5 minutes daily.</li>
+    </ul>
+    <a class="link-btn" href="https://www.youtube.com/watch?v=c0QoSiGpXhI" target="_blank">▶ Barre chord masterclass</a>
+  </div>
+
+  <div class="section-heading"><span class="dot dot-skill"></span>Capo use — weeks 12–14</div>
+  <div class="lesson-card">
+    <h3>The capo — why Mumford & Sons and Hozier live here</h3>
+    <p>A capo clamps across the fretboard and raises the key of the guitar. It lets you use familiar open chord shapes in any key — which is exactly what Mumford & Sons, Hozier, and Gregory Alan Isakov do constantly.</p>
+    <ul>
+      <li><strong>Example:</strong> Mumford & Sons' "The Cave" is played with a capo on fret 5, using basic open chord shapes. Without the capo, the same song would require difficult barre chords in A major.</li>
+      <li><strong>Hozier's "Take Me to Church":</strong> Capo 1, basic Em/Am shapes. Sounds huge, plays simply.</li>
+      <li>Buy a capo (~$10–15). It's one of the best investments a beginner can make for playing songs they actually love.</li>
+    </ul>
+    <a class="link-btn" href="https://www.youtube.com/watch?v=FzFRpCYRMVQ" target="_blank">▶ How to use a capo</a>
+  </div>
+
+  <div class="section-heading"><span class="dot dot-skill"></span>Advanced strumming — weeks 13–15</div>
+  <div class="lesson-card">
+    <h3>Strumming patterns — the rhythmic identity of folk and indie</h3>
+    <ul>
+      <li><strong>Down-up strumming:</strong> D-DU-UDU — the most common pattern in folk and acoustic rock</li>
+      <li><strong>Muted strums:</strong> Rest the palm on the strings mid-strum for a percussive "chunk" — essential for Mumford & Sons</li>
+      <li><strong>Accent strumming:</strong> Hit beats 2 and 4 harder — gives music a driving folk feel</li>
+      <li>Always learn the rhythm of a song by listening first, tapping on your knee, then transferring it to the guitar</li>
+    </ul>
+    <a class="link-btn" href="https://www.youtube.com/watch?v=oHQPRJNWcHM" target="_blank">▶ Strumming patterns for folk and indie</a>
+  </div>
+
+  <div class="section-heading"><span class="dot dot-theory"></span>Music theory — weeks 11–20</div>
+  <div class="lesson-card">
+    <h3>Chord extensions, the Nashville number system, and playing by ear</h3>
+    <ul>
+      <li><strong>Chord extensions:</strong> Add7, sus2, sus4 chords — these are the "color" chords that make John Mayer and Gregory Alan Isakov's music feel atmospheric and rich</li>
+      <li><strong>The Nashville Number System:</strong> Label chords by their position in the key (1, 2m, 3m, 4, 5, 6m) instead of by name. Lets you instantly transpose any song to any key.</li>
+      <li><strong>Playing by ear:</strong> Start identifying whether a chord change sounds like it goes "up" or "down," and whether it feels resolved or unresolved. This builds the intuition to figure out songs without chord charts.</li>
+      <li><strong>Intervals:</strong> The distance between two notes. Recognizing intervals by sound (a 4th sounds like "Here Comes the Bride," a 5th like "Star Wars") is the foundation of playing by ear.</li>
+    </ul>
+    <a class="link-btn" href="https://www.youtube.com/watch?v=yqHpHWMiAoA" target="_blank">▶ Nashville number system explained</a>
+    <a class="link-btn" href="https://www.youtube.com/watch?v=RlPNh_PBZb4" target="_blank">▶ Playing guitar by ear (beginner)</a>
+  </div>
+
+  <div class="section-heading"><span class="dot dot-song"></span>Phase 3 songs</div>
+  <div class="song-card">
+    <div class="song-num">4</div>
+    <div>
+      <div class="song-name">The Cave — Mumford & Sons</div>
+      <div class="song-artist">Mumford & Sons · Capo 5 · Key of A</div>
+      <div class="song-why">Driving strumming pattern, capo 5, open chord shapes. Iconic and enormously satisfying to play. Tests everything from Phase 1–3.</div>
+      <span class="song-tag tag-mid">Intermediate</span>
+      <br><a class="link-btn" href="https://www.youtube.com/watch?v=YITQSb_xR9Y" target="_blank">▶ The Cave tutorial</a>
+    </div>
+  </div>
+  <div class="song-card">
+    <div class="song-num">5</div>
+    <div>
+      <div class="song-name">Take Me to Church — Hozier</div>
+      <div class="song-artist">Hozier · Capo 1 · Am shapes</div>
+      <div class="song-why">Capo 1, Am-based chord shapes, dramatic strumming pattern. One of the most recognizable songs of your generation and very achievable by Phase 3.</div>
+      <span class="song-tag tag-mid">Intermediate</span>
+      <br><a class="link-btn" href="https://www.youtube.com/watch?v=s6J3OGjU_xE" target="_blank">▶ Take Me to Church tutorial</a>
+    </div>
+  </div>
+  <div class="song-card">
+    <div class="song-num">6</div>
+    <div>
+      <div class="song-name">Slow Dancing in a Burning Room — John Mayer</div>
+      <div class="song-artist">John Mayer · C#m · Electric guitar</div>
+      <div class="song-why">Introduces you to electric lead playing and expressive bends. The intro riff is one of the most beautiful and learnable lead guitar passages for intermediate players.</div>
+      <span class="song-tag tag-hard">Challenging</span>
+      <br><a class="link-btn" href="https://www.youtube.com/watch?v=vp8P_cpAqjw" target="_blank">▶ Slow Dancing in a Burning Room tutorial</a>
+    </div>
+  </div>
+
+  <div class="warning-card"><strong>Avoiding the Phase 3 plateau:</strong> This is where progress slows and feels invisible. Combat it by recording yourself playing a Phase 1 song — you'll hear how far you've come. Also set a specific goal: "I want to play Take Me to Church from start to finish by week 14." Specific targets beat vague practice.</div>
+</div>
+
+<!-- SONG ROADMAP -->
+<div id="songs" class="phase-content">
+  <div class="phase-header">
+    <h2>Your full song roadmap</h2>
+    <p>Every song is chosen specifically for your taste and matched to a skill level. Work through them in order — each one teaches something the previous one didn't.</p>
+    <div class="chips"><span class="chip accent">12 songs total</span><span class="chip">All genres you love</span><span class="chip">Ordered by difficulty</span></div>
+  </div>
+
+  <div class="section-heading"><span class="dot dot-song"></span>Beginner songs (Phase 1)</div>
+  <div class="song-card"><div class="song-num">1</div><div><div class="song-name">Work Song — Hozier</div><div class="song-artist">Chords: Am, G, C, F · Acoustic</div><div class="song-why">Your very first real song. Simple strumming, chords you'll know by week 3.</div><span class="song-tag tag-easy">Weeks 3–4</span><br><a class="link-btn" href="https://www.youtube.com/watch?v=jAPmkfVWMXk" target="_blank">▶ Tutorial</a></div></div>
+
+  <div class="song-card"><div class="song-num">2</div><div><div class="song-name">Flightless Bird — Iron & Wine</div><div class="song-artist">Chords: G, C, Em, D · Acoustic</div><div class="song-why">Folk fingerpicking intro. Slow, spacious, and achievable in late Phase 1.</div><span class="song-tag tag-easy">Weeks 4–5</span><br><a class="link-btn" href="https://www.youtube.com/watch?v=lOtLBqWFuoE" target="_blank">▶ Tutorial</a></div></div>
+
+  <div class="section-heading"><span class="dot dot-song"></span>Intermediate songs (Phase 2)</div>
+  <div class="song-card"><div class="song-num">3</div><div><div class="song-name">Skinny Love — Bon Iver</div><div class="song-artist">Fingerpicking · Acoustic · Key of Bm</div><div class="song-why">First real fingerpicking challenge. Stunning result when it comes together.</div><span class="song-tag tag-mid">Weeks 6–8</span><br><a class="link-btn" href="https://www.youtube.com/watch?v=s8sRoXNBfkA" target="_blank">▶ Tutorial</a></div></div>
+
+  <div class="song-card"><div class="song-num">4</div><div><div class="song-name">The Stable Song — Gregory Alan Isakov</div><div class="song-artist">Fingerpicking · Key of G · Acoustic</div><div class="song-why">Pure folk fingerpicking. Teaches you how few chords can sound like so much.</div><span class="song-tag tag-mid">Weeks 7–9</span><br><a class="link-btn" href="https://www.youtube.com/watch?v=dKJ0IfvEFsI" target="_blank">▶ Tutorial</a></div></div>
+
+  <div class="song-card"><div class="song-num">5</div><div><div class="song-name">Lover — Role Model</div><div class="song-artist">Electric guitar · Indie pop · Simple lead</div><div class="song-why">Introduces you to electric indie playing. Clean tone, melodic riffs, very learnable.</div><span class="song-tag tag-mid">Weeks 8–10</span><br><a class="link-btn" href="https://www.youtube.com/watch?v=MNy8sFtAKdY" target="_blank">▶ Tutorial</a></div></div>
+
+  <div class="song-card"><div class="song-num">6</div><div><div class="song-name">Holocene — Bon Iver</div><div class="song-artist">Fingerpicking · Capo 3 · Atmospheric</div><div class="song-why">One of the most beautiful fingerpicking songs ever written. Capo 3, open shapes.</div><span class="song-tag tag-mid">Weeks 9–11</span><br><a class="link-btn" href="https://www.youtube.com/watch?v=tD2XdKL77tQ" target="_blank">▶ Tutorial</a></div></div>
+
+  <div class="section-heading"><span class="dot dot-song"></span>Advanced songs (Phase 3)</div>
+  <div class="song-card"><div class="song-num">7</div><div><div class="song-name">The Cave — Mumford & Sons</div><div class="song-artist">Capo 5 · Driving strumming · Full band feel</div><div class="song-why">The payoff song for strumming. Fast, driving, and enormously fun to play.</div><span class="song-tag tag-mid">Weeks 11–13</span><br><a class="link-btn" href="https://www.youtube.com/watch?v=YITQSb_xR9Y" target="_blank">▶ Tutorial</a></div></div>
+
+  <div class="song-card"><div class="song-num">8</div><div><div class="song-name">Take Me to Church — Hozier</div><div class="song-artist">Capo 1 · Am shapes · Dramatic dynamics</div><div class="song-why">Tests your dynamic range — the quiet verse vs the powerful chorus.</div><span class="song-tag tag-mid">Weeks 12–14</span><br><a class="link-btn" href="https://www.youtube.com/watch?v=s6J3OGjU_xE" target="_blank">▶ Tutorial</a></div></div>
+
+  <div class="song-card"><div class="song-num">9</div><div><div class="song-name">Cherry Wine — Hozier</div><div class="song-artist">Fingerpicking + strumming · Mix of both worlds</div><div class="song-why">Blends fingerpicking and strumming. Tests all your acoustic skills together.</div><span class="song-tag tag-mid">Weeks 13–15</span><br><a class="link-btn" href="https://www.youtube.com/watch?v=kgAYpYKXSXk" target="_blank">▶ Tutorial</a></div></div>
+
+  <div class="song-card"><div class="song-num">10</div><div><div class="song-name">Slow Dancing in a Burning Room — John Mayer</div><div class="song-artist">Electric · C#m · Lead guitar intro</div><div class="song-why">The lead guitar intro is one of the most expressive and learnable passages in modern guitar.</div><span class="song-tag tag-hard">Weeks 14–17</span><br><a class="link-btn" href="https://www.youtube.com/watch?v=vp8P_cpAqjw" target="_blank">▶ Tutorial</a></div></div>
+
+  <div class="song-card"><div class="song-num">11</div><div><div class="song-name">Little Lion Man — Mumford & Sons</div><div class="song-artist">Banjo-style picking · Capo 2 · Fast</div><div class="song-why">Fast fingerpicking and aggressive strumming. A real test of your right-hand development.</div><span class="song-tag tag-hard">Weeks 16–18</span><br><a class="link-btn" href="https://www.youtube.com/watch?v=1UBF1tqKoRM" target="_blank">▶ Tutorial</a></div></div>
+
+  <div class="song-card"><div class="song-num">12</div><div><div class="song-name">Gravity — John Mayer</div><div class="song-artist">Electric · Blues · Solo included</div><div class="song-why">Your graduation song. Blues-based, soulful, and a complete test of everything you've learned.</div><span class="song-tag tag-hard">Weeks 18–20</span><br><a class="link-btn" href="https://www.youtube.com/watch?v=Np7SJF1TPOU" target="_blank">▶ Tutorial</a></div></div>
+</div>
+
+<!-- FEEDBACK + TOOLS -->
+<div id="feedback" class="phase-content">
+  <div class="phase-header">
+    <h2>Feedback and progress tools</h2>
+    <p>The two reasons you've quit before — "progress feels slow" and "I can't tell if I'm playing correctly" — have specific solutions. Here they are.</p>
+  </div>
+
+  <div class="section-heading"><span class="dot dot-practice"></span>Solving "I can't tell if I'm playing correctly"</div>
+  <div class="tools-grid">
+    <div class="tool-card"><h4>Yousician <span class="paid-badge">Freemium</span></h4><p>Listens through your phone mic and grades your playing in real time. Tells you which notes are wrong and which strings are buzzing. The closest thing to a teacher watching you.</p></div>
+    <div class="tool-card"><h4>GuitarTuna <span class="free-badge">Free</span></h4><p>Tune before every single session. Playing out of tune is the fastest way to develop bad ear habits. This takes 30 seconds and matters more than people think.</p></div>
+    <div class="tool-card"><h4>Record yourself <span class="free-badge">Free</span></h4><p>Your phone camera is your best feedback tool. Record each practice session from the side. Watch your fretting hand — if a chord buzzes, the video will show you exactly why.</p></div>
+    <div class="tool-card"><h4>Chord buzzing test <span class="free-badge">Free</span></h4><p>After fretting a chord, pluck each string individually. Any string that buzzes or mutes is a problem finger. Adjust until all 6 (or 5) strings ring clearly, then strum.</p></div>
+  </div>
+
+  <div class="section-heading"><span class="dot dot-practice"></span>Solving "progress feels slow"</div>
+  <div class="tools-grid">
+    <div class="tool-card"><h4>The 1-minute chord change test</h4><p>Set a timer for 1 minute. Count how many clean chord changes you make (Em→Am, Em→Am...). Write it down. Do this weekly. Watching that number go from 8 to 24 to 40 is concrete, measurable proof of progress.</p></div>
+    <div class="tool-card"><h4>Video diary</h4><p>Record yourself playing something on day 1 of each phase. Play it back at the end of the phase. The contrast is dramatic and will make you want to keep going.</p></div>
+    <div class="tool-card"><h4>Justin Guitar app <span class="free-badge">Free</span></h4><p>The gold standard free guitar learning app. Structured lessons, progress tracking, and a built-in practice timer. Used by millions of self-taught players.</p></div>
+    <div class="tool-card"><h4>Metronome Beats <span class="free-badge">Free</span></h4><p>Never practice without a metronome. Playing in time is a skill that needs training separately from chord shapes. Start every new thing at 60 BPM and only increase when it's clean.</p></div>
+  </div>
+
+  <div class="section-heading"><span class="dot dot-practice"></span>Daily practice schedule</div>
+  <div class="schedule-grid">
+    <div class="sched-day practice"><div class="sched-name">Mon</div><div class="sched-type">Chords + theory</div></div>
+    <div class="sched-day practice"><div class="sched-name">Tue</div><div class="sched-type">Song practice</div></div>
+    <div class="sched-day practice"><div class="sched-name">Wed</div><div class="sched-type">Technique</div></div>
+    <div class="sched-day rest"><div class="sched-name">Thu</div><div class="sched-type">Rest</div></div>
+    <div class="sched-day practice"><div class="sched-name">Fri</div><div class="sched-type">Song practice</div></div>
+    <div class="sched-day practice"><div class="sched-name">Sat</div><div class="sched-type">Free play</div></div>
+    <div class="sched-day rest"><div class="sched-name">Sun</div><div class="sched-type">Rest</div></div>
+  </div>
+
+  <div class="lesson-card">
+    <h3>How to structure each practice session</h3>
+    <ul>
+      <li><strong>5 min — Warm up:</strong> Slow chord changes, no pressure. Just waking up your fingers.</li>
+      <li><strong>5 min — Weak spot drill:</strong> Whatever was hardest last session. F chord, a tricky transition, a fingerpicking pattern.</li>
+      <li><strong>10 min — Song work:</strong> Current song from the roadmap. Work on one difficult section, not the whole song.</li>
+      <li><strong>5 min — Play something you already know:</strong> End every session on something that sounds good. This is crucial for motivation.</li>
+    </ul>
+  </div>
+
+  <div class="info-card"><strong>The most important rule:</strong> Always end your practice session playing something that sounds good to you — even if it's just one chord or a simple riff you learned in week 1. Ending on a win keeps you coming back.</div>
+</div>
+
+<!-- MILESTONES -->
+<div id="milestones" class="phase-content">
+  <div class="phase-header">
+    <h2>Progress milestones</h2>
+    <p>Check these off as you hit them. Each one is a real, tangible proof point that you're progressing — not a vague feeling.</p>
+  </div>
+
+  <div class="section-heading"><span class="dot dot-skill"></span>Phase 1 milestones — tap to check off</div>
+  <div class="progress-checklist" id="checklist">
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">I can tune my guitar using GuitarTuna without help</div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Em and Am both ring cleanly with no buzzing strings</div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">I can switch Em → Am 20+ times in one minute</div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">I can strum in time with a metronome at 70 BPM</div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">I know what the musical alphabet is and what a semitone means</div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">I can play Work Song (Hozier) from start to finish, slowly</div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">I have calluses forming on my fretting fingertips</div></div>
+
+    <div class="section-heading" style="margin-top:1.25rem"><span class="dot dot-skill"></span>Phase 2 milestones</div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">I can play G, C, Am, Em, D, and Fmaj7 cleanly</div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">I can fingerpick a basic Travis pattern on an Am chord</div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">I understand what a key is and can name the chords in G major</div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">I can play the intro of Skinny Love (Bon Iver)</div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">I've played a song on electric guitar and understand the difference in feel</div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">I know the pentatonic scale box 1 shape on the fretboard</div></div>
+
+    <div class="section-heading" style="margin-top:1.25rem"><span class="dot dot-skill"></span>Phase 3 milestones</div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">I can play a full F barre chord that rings cleanly</div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">I understand how a capo changes the key and use it naturally</div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">I can play Take Me to Church (Hozier) from start to finish</div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">I can play The Cave (Mumford & Sons) at close to full speed</div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">I can figure out the chords to a simple song by ear</div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">I can play Gravity (John Mayer) — the graduation song</div></div>
+  </div>
+
+  <div class="tip-card" style="margin-top:1.25rem"><strong>When you hit a milestone:</strong> Celebrate it. Text a friend, post a clip, play the song for someone. External sharing of progress is one of the strongest motivators in learning any skill — and it makes the slow weeks feel worth it.</div>
+</div>
+
+<script>
+function showPhase(id, btn) {
+  document.querySelectorAll('.phase-content').forEach(p => p.classList.remove('visible'));
+  document.querySelectorAll('.phase-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('visible');
+  btn.classList.add('active');
+}
+function toggleCheck(el) {
+  el.classList.toggle('done');
+}
+</script>
