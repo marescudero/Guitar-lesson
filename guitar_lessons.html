@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guitar Lesson Plan — Daily Instructions</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Karla:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0F0E0C;
+  --surface: #1A1916;
+  --surface2: #222018;
+  --border: rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.14);
+  --text: #E8E4DA;
+  --text-muted: #8A8578;
+  --text-dim: #5A5650;
+  --amber: #C8922A;
+  --amber-light: #E8B84B;
+  --amber-dim: rgba(200,146,42,0.12);
+  --teal: #2A9D8F;
+  --teal-dim: rgba(42,157,143,0.12);
+  --rose: #C25F5F;
+  --rose-dim: rgba(194,95,95,0.12);
+  --green: #5A9A6A;
+  --green-dim: rgba(90,154,106,0.12);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Karla', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+
+/* HERO */
+.hero { padding: 3rem 1.5rem 2.5rem; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 20% 50%, rgba(200,146,42,0.06) 0%, transparent 60%); pointer-events: none; }
+.hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; color: var(--amber); margin-bottom: .75rem; }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 5vw, 2.6rem); line-height: 1.15; color: var(--text); margin-bottom: .75rem; }
+.hero h1 em { font-style: italic; color: var(--amber-light); }
+.hero-sub { font-size: 14px; color: var(--text-muted); line-height: 1.6; max-width: 520px; margin-bottom: 1.25rem; }
+.hero-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.hero-pill { font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border2); color: var(--text-muted); background: var(--surface); }
+
+/* NAV */
+.phase-nav { display: flex; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--border); background: var(--surface); position: sticky; top: 0; z-index: 100; }
+.phase-nav::-webkit-scrollbar { display: none; }
+.pnav-btn { flex-shrink: 0; padding: .9rem 1.1rem; font-size: 13px; font-weight: 500; color: var(--text-muted); background: none; border: none; cursor: pointer; border-bottom: 2px solid transparent; transition: all .2s; white-space: nowrap; font-family: 'Karla', sans-serif; letter-spacing: .02em; }
+.pnav-btn.active { color: var(--amber-light); border-bottom-color: var(--amber); }
+.pnav-btn:hover:not(.active) { color: var(--text); }
+
+/* PHASE CONTENT */
+.phase { display: none; }
+.phase.visible { display: block; }
+.container { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.25rem 4rem; }
+
+/* PHASE HEADER */
+.phase-hdr { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+.phase-hdr h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--text); margin-bottom: .5rem; }
+.phase-hdr p { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem; }
+.phase-meta { display: flex; flex-wrap: wrap; gap: 8px; }
+.meta-chip { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 4px; }
+.chip-amber { background: var(--amber-dim); color: var(--amber-light); }
+.chip-teal { background: var(--teal-dim); color: var(--teal); }
+.chip-rose { background: var(--rose-dim); color: var(--rose); }
+.chip-green { background: var(--green-dim); color: var(--green); }
+
+/* WEEK SECTIONS */
+.week-section { margin-bottom: 2.5rem; }
+.week-label { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--amber); margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; }
+.week-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* DAY CARDS */
+.day-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; overflow: hidden; }
+.day-header { display: flex; align-items: center; gap: 12px; padding: .9rem 1.1rem; cursor: pointer; transition: background .15s; user-select: none; }
+.day-header:hover { background: var(--surface2); }
+.day-num { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+.dn-skill { background: var(--amber-dim); color: var(--amber-light); }
+.dn-theory { background: var(--teal-dim); color: var(--teal); }
+.dn-song { background: var(--rose-dim); color: var(--rose); }
+.dn-free { background: var(--green-dim); color: var(--green); }
+.dn-rest { background: rgba(255,255,255,0.05); color: var(--text-dim); }
+.day-info { flex: 1; }
+.day-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.day-subtitle { font-size: 12px; color: var(--text-muted); }
+.day-duration { font-size: 11px; font-weight: 500; color: var(--text-dim); background: rgba(255,255,255,0.05); padding: 3px 8px; border-radius: 4px; flex-shrink: 0; }
+.day-chevron { color: var(--text-dim); font-size: 12px; transition: transform .2s; flex-shrink: 0; }
+.day-card.open .day-chevron { transform: rotate(180deg); }
+.day-body { display: none; border-top: 1px solid var(--border); }
+.day-card.open .day-body { display: block; }
+
+/* LESSON CONTENT */
+.lesson-content { padding: 1.25rem 1.25rem 1.5rem; }
+.lesson-intro { font-size: 13px; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem; padding: .85rem 1rem; background: var(--surface2); border-radius: 8px; border-left: 3px solid var(--amber); }
+.lesson-intro strong { color: var(--amber-light); font-weight: 500; }
+
+.step-list { display: flex; flex-direction: column; gap: 0; margin-bottom: 1.25rem; }
+.step { display: flex; gap: 14px; padding: .9rem 0; border-bottom: 1px solid var(--border); }
+.step:last-child { border-bottom: none; padding-bottom: 0; }
+.step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--amber-dim); color: var(--amber-light); font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.step-content { flex: 1; }
+.step-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.step-desc { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
+.step-desc ul { padding-left: 1rem; margin-top: 4px; }
+.step-desc li { margin-bottom: 3px; }
+.step-time { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 4px; background: rgba(255,255,255,0.06); color: var(--text-dim); margin-left: 8px; vertical-align: middle; }
+
+.check-section { margin-top: 1.25rem; border-top: 1px solid var(--border); padding-top: 1.25rem; }
+.check-title { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: .75rem; }
+.check-list { display: flex; flex-direction: column; gap: 6px; }
+.check-item { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; padding: .5rem .75rem; border-radius: 6px; border: 1px solid var(--border); background: var(--surface2); transition: background .15s; }
+.check-item:hover { background: rgba(255,255,255,0.04); }
+.check-box { width: 16px; height: 16px; border-radius: 3px; border: 1.5px solid var(--border2); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: all .15s; }
+.check-item.done .check-box { background: var(--green); border-color: var(--green); }
+.check-item.done .check-box::after { content: ''; width: 4px; height: 7px; border: 1.5px solid white; border-top: none; border-left: none; transform: rotate(45deg) translateY(-1px); display: block; }
+.check-item.done .check-label { text-decoration: line-through; color: var(--text-dim); }
+.check-label { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+.video-link { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 500; color: var(--amber); text-decoration: none; padding: 5px 12px; border-radius: 6px; border: 1px solid rgba(200,146,42,0.3); background: var(--amber-dim); margin-top: .75rem; margin-right: 6px; transition: all .15s; }
+.video-link:hover { background: rgba(200,146,42,0.2); border-color: rgba(200,146,42,0.5); }
+
+.tip-box { background: var(--green-dim); border: 1px solid rgba(90,154,106,0.25); border-radius: 8px; padding: .85rem 1rem; margin-top: 1rem; font-size: 13px; color: var(--green); line-height: 1.6; }
+.warn-box { background: var(--rose-dim); border: 1px solid rgba(194,95,95,0.25); border-radius: 8px; padding: .85rem 1rem; margin-top: 1rem; font-size: 13px; color: var(--rose); line-height: 1.6; }
+.info-box { background: var(--teal-dim); border: 1px solid rgba(42,157,143,0.25); border-radius: 8px; padding: .85rem 1rem; margin-top: 1rem; font-size: 13px; color: var(--teal); line-height: 1.6; }
+
+.rest-card { padding: 1.5rem 1.25rem; text-align: center; }
+.rest-icon { font-size: 28px; margin-bottom: .5rem; }
+.rest-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.rest-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-eyebrow">Day-by-day guitar curriculum</div>
+  <h1>Your complete<br><em>lesson guide</em></h1>
+  <p class="hero-sub">Step-by-step daily instructions for every practice session across all three phases. Open each day before you pick up the guitar.</p>
+  <div class="hero-pills">
+    <span class="hero-pill">Hozier</span>
+    <span class="hero-pill">Bon Iver</span>
+    <span class="hero-pill">Mumford & Sons</span>
+    <span class="hero-pill">Role Model</span>
+    <span class="hero-pill">Gregory Alan Isakov</span>
+    <span class="hero-pill">John Mayer</span>
+  </div>
+</div>
+
+<nav class="phase-nav">
+  <button class="pnav-btn active" onclick="showPhase('p1',this)">Phase 1 — Foundation</button>
+  <button class="pnav-btn" onclick="showPhase('p2',this)">Phase 2 — Build</button>
+  <button class="pnav-btn" onclick="showPhase('p3',this)">Phase 3 — Expand</button>
+</nav>
+
+<!-- ============================================================ PHASE 1 ============================================================ -->
+<div id="p1" class="phase visible">
+<div class="container">
+  <div class="phase-hdr">
+    <h2>Phase 1 — Foundation (Weeks 1–4)</h2>
+    <p>Your only job this phase is to build physical habits. Fingers hurt, chords buzz, switching is slow — all of this is normal and temporary. Every professional guitarist went through exactly this. By week 4 your hands will start doing things automatically that feel impossible today.</p>
+    <div class="phase-meta">
+      <span class="meta-chip chip-amber">Weeks 1–4</span>
+      <span class="meta-chip chip-teal">15–20 min/day</span>
+      <span class="meta-chip chip-teal">Acoustic guitar</span>
+      <span class="meta-chip chip-teal">5–6 days/week</span>
+    </div>
+  </div>
+
+  <!-- WEEK 1 -->
+  <div class="week-section">
+    <div class="week-label">Week 1 — Your very first session</div>
+
+    <!-- DAY 1 -->
+    <div class="day-card" id="d1">
+      <div class="day-header" onclick="toggleDay('d1')">
+        <div class="day-num dn-skill">D1</div>
+        <div class="day-info">
+          <div class="day-title">Setup + Em chord</div>
+          <div class="day-subtitle">Posture, tuning, your first chord shape</div>
+        </div>
+        <span class="day-duration">20 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>Before you touch the strings:</strong> Today is not about sounding good. It's about setting up the habits that will carry you through 20 weeks of learning. Take your time on every step. Read each instruction before doing it.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Tune your guitar <span class="step-time">3 min</span></div><div class="step-desc">Download GuitarTuna (free). Open the app and pluck each string one at a time — low E, A, D, G, B, high E. The app will show you if it's too high or too low. Tighten the tuning peg to raise pitch, loosen to lower. Never skip tuning. Playing out of tune teaches your ears the wrong thing from day one.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Set your posture <span class="step-time">2 min</span></div><div class="step-desc">Sit up straight in an armless chair. Rest the guitar's waist on your right thigh (if right-handed). The neck should angle slightly upward — not horizontal. Your fretting hand thumb sits behind the neck, roughly behind your middle finger. Your wrist should have a slight forward curve, not collapsed flat against the neck.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Learn the Em chord shape <span class="step-time">7 min</span></div><div class="step-desc">Em uses only two fingers. Place your middle finger on string 5 (the second thickest), 2nd fret. Place your ring finger on string 4 (next to it), 2nd fret. Press firmly with your fingertips — not the pads. Your other fingers should not touch the strings. Strum all 6 strings slowly with your thumb. Every string should ring. If any buzz, check that your fingers are right behind the fret (not on it) and pressing firmly.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Pluck each string individually <span class="step-time">3 min</span></div><div class="step-desc">With Em fretted, pluck string 6, then 5, 4, 3, 2, 1 one at a time. Each should ring clearly. If string 3, 2, or 1 buzzes, one of your fingers is accidentally touching it. Curve your fingers more so only the very tips touch the strings. Do this until all 6 ring clearly.</div></div></div>
+            <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">First strumming — down only <span class="step-time">5 min</span></div><div class="step-desc">Hold the pick between your thumb and index finger — about half the pick showing. Strum downward across all 6 strings slowly. Count out loud: "1 — 2 — 3 — 4" with one strum per beat. Don't worry about rhythm yet. Just hear that you're making a chord sound. End the session here.</div></div></div>
+          </div>
+          <div class="tip-box">Record a 30-second video of yourself playing Em right now. Save it. You'll watch it again at the end of week 4 and the difference will be the clearest proof of progress you'll ever see.</div>
+          <div class="check-section">
+            <div class="check-title">End of session checklist</div>
+            <div class="check-list">
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Guitar is in tune</div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Em chord fretted with middle + ring fingers on strings 5 and 4, 2nd fret</div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">All 6 strings ring clearly when plucked individually</div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Day 1 video saved to phone</div></div>
+            </div>
+          </div>
+          <a class="video-link" href="https://www.youtube.com/watch?v=1q-CVaJPON8" target="_blank">▶ Em chord tutorial (Justin Guitar)</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 2 -->
+    <div class="day-card" id="d2">
+      <div class="day-header" onclick="toggleDay('d2')">
+        <div class="day-num dn-skill">D2</div>
+        <div class="day-info">
+          <div class="day-title">Am chord + first chord switch</div>
+          <div class="day-subtitle">Learn Am and begin switching between Em and Am</div>
+        </div>
+        <span class="day-duration">20 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>Your fingers will be sore.</strong> This is callus formation — your fingertips are toughening up. It peaks around day 4–5 and gets dramatically better after week 2. Keep sessions short and push through it. Today you add Am and make your first chord switch.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Tune + warm up with Em <span class="step-time">4 min</span></div><div class="step-desc">Tune first. Then fret Em and strum 8 times slowly. Count "1-2-3-4" for each group of 4. Your fingers need to warm up into the shape before you move on.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Learn the Am chord shape <span class="step-time">5 min</span></div><div class="step-desc">Am uses three fingers. Index finger on string 2 (second thinnest), 1st fret. Middle finger on string 4, 2nd fret. Ring finger on string 3, 2nd fret. Strum strings 5 down to 1 — do NOT strum the 6th (thickest) string. Pluck each string individually and fix any buzzes before moving on.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">The chord switch drill <span class="step-time">8 min</span></div><div class="step-desc">This is the most important drill in Phase 1. Strum Em 4 times (counting 1-2-3-4). Then lift all fingers, form Am, and strum 4 times. Then back to Em. Do this continuously for 8 minutes. The switch will feel impossibly slow at first. That's fine. Speed comes from repetition, not from trying to go faster.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">The 1-minute chord change test — Day 1 baseline <span class="step-time">3 min</span></div><div class="step-desc">Set a 1-minute timer. Switch between Em and Am as many times as you can while keeping both chords clean. Count each full switch (Em to Am = 1). Write down your number. This is your baseline score — you'll beat it every single week.</div></div></div>
+          </div>
+          <div class="info-box">Am and Em are the core of almost every Hozier song. The chord progression Am → G → C → F that appears in Work Song, Someone New, and From Eden is built on exactly these two chords. You are already playing the DNA of your favorite music.</div>
+          <div class="check-section">
+            <div class="check-title">End of session checklist</div>
+            <div class="check-list">
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Am chord rings cleanly on strings 5–1</div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">1-minute baseline score written down</div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Can switch Em → Am without stopping to think about finger placement</div></div>
+            </div>
+          </div>
+          <a class="video-link" href="https://www.youtube.com/watch?v=1q-CVaJPON8" target="_blank">▶ Em and Am chord tutorial</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 3 -->
+    <div class="day-card" id="d3">
+      <div class="day-header" onclick="toggleDay('d3')">
+        <div class="day-num dn-theory">D3</div>
+        <div class="day-info">
+          <div class="day-title">Music theory — the musical alphabet</div>
+          <div class="day-subtitle">Notes, frets, and what a chord actually is</div>
+        </div>
+        <span class="day-duration">20 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>Theory days are active, not passive.</strong> You'll play along with everything you learn today. Theory without a guitar in your hands is just memorization. Theory with a guitar in your hands is understanding.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Warm up — chord switch drill <span class="step-time">4 min</span></div><div class="step-desc">Tune your guitar. Do 4 minutes of Em → Am switches. You should already feel slightly faster than yesterday. Don't count — just flow.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">The musical alphabet <span class="step-time">5 min</span></div><div class="step-desc">There are only 7 natural notes in Western music: A B C D E F G. After G, it goes back to A and repeats. Between most notes there are sharps (#) or flats (b) — A, A#, B, C, C#, D, D#, E, F, F#, G, G#, then back to A. That's 12 notes total, repeating forever. Say this out loud three times: "A A# B C C# D D# E F F# G G#." This is the entire vocabulary of Western music.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Notes on the guitar <span class="step-time">5 min</span></div><div class="step-desc">Each fret moves the note up by one step (one semitone). Your open strings (unfretted) are: E A D G B E from thick to thin. Play the open low E string. Now press fret 1 — that's F. Fret 2 is F#. Fret 3 is G. Fret 4 is G#. Fret 5 is A (same pitch as your open A string). Play each one slowly and listen to the pitch rising.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">What a chord is <span class="step-time">6 min</span></div><div class="step-desc">A chord is three or more notes played together. Em contains E, G, and B. Fret Em and pluck each string — strings 6 (E), 5 (B), 4 (E), 3 (G), 2 (B), 1 (E). You're hearing E, G, and B notes stacked together. Am contains A, C, and E. These three-note groups (called triads) are the building blocks of all the music you love.</div></div></div>
+          </div>
+          <div class="tip-box">Knowing the notes on your guitar isn't urgent right now — but understanding that every fret is a half-step helps you later when you learn scales, keys, and why certain chords sound right together. Plant the seed today, harvest it in Phase 2.</div>
+          <a class="video-link" href="https://www.youtube.com/watch?v=rgaTLrZGlk0" target="_blank">▶ Music theory for guitar beginners</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 4 -->
+    <div class="day-card" id="d4">
+      <div class="day-header" onclick="toggleDay('d4')">
+        <div class="day-num dn-skill">D4</div>
+        <div class="day-info">
+          <div class="day-title">Strumming with a metronome</div>
+          <div class="day-subtitle">Building rhythm with Em and Am</div>
+        </div>
+        <span class="day-duration">20 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>Rhythm is a separate skill from chord shapes.</strong> Today you deliberately practice playing in time. A metronome is your most important teacher for this — it doesn't lie, it doesn't slow down for you, and it shows you exactly when you're rushing or dragging.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Download Metronome Beats (free) and set to 60 BPM <span class="step-time">2 min</span></div><div class="step-desc">60 BPM means 60 beats per minute — one beat per second. This feels slow. That is deliberate. You are training accuracy, not speed.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Strum Em in time <span class="step-time">5 min</span></div><div class="step-desc">Fret Em. On every click of the metronome, strum down once. Four clicks = four strums. Count out loud: "1 — 2 — 3 — 4." The strum must happen exactly on the click, not before or after. If you miss a beat, don't try to catch up — just find the next click and land on it.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Switch to Am on beat 1 <span class="step-time">8 min</span></div><div class="step-desc">Strum Em four times (four clicks). On the next beat 1, switch to Am and strum four times. Switch back to Em on the next beat 1. The switch must happen on the beat — not after you've formed the chord. This means you start moving your fingers on beat 4, so your hand arrives in position on beat 1. This is a fundamental technique called "preparing the chord."</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">1-minute chord change test — week 1 check <span class="step-time">3 min</span></div><div class="step-desc">Set 1-minute timer. Switch Em → Am as many times as possible with clean chords. Write down the number. Compare to Day 2's baseline.</div></div></div>
+            <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">Cool down — play freely <span class="step-time">2 min</span></div><div class="step-desc">Put the metronome away. Switch between Em and Am however you like, at whatever speed feels comfortable. End every session doing something that feels good.</div></div></div>
+          </div>
+          <div class="warn-box">If you find yourself lifting your strumming hand to "wait" for the chord switch, you're moving too fast. Drop the metronome to 50 BPM. There is no shame in 50 BPM. Every professional guitarist practiced at 50 BPM.</div>
+          <a class="video-link" href="https://www.youtube.com/watch?v=hqatEMHzGWs" target="_blank">▶ Beginner strumming fundamentals</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 5 -->
+    <div class="day-card" id="d5">
+      <div class="day-header" onclick="toggleDay('d5')">
+        <div class="day-num dn-skill">D5</div>
+        <div class="day-info">
+          <div class="day-title">Consolidation + first song preview</div>
+          <div class="day-subtitle">Solidify Em and Am — preview Work Song by Hozier</div>
+        </div>
+        <span class="day-duration">20 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>Today is about making what you know feel solid.</strong> No new chords. Just Em and Am with more intention — and your first glimpse of Work Song by Hozier, which you'll be able to play in full by week 4.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Tune and check your chord quality <span class="step-time">4 min</span></div><div class="step-desc">Tune the guitar. Fret Em and pluck every string individually — all 6 must ring clearly. Then fret Am and pluck strings 5 through 1 — all 5 must ring clearly. Fix any buzzes before continuing. This individual-string check is how you confirm your chord is actually correct.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Metronome switching at 65 BPM <span class="step-time">7 min</span></div><div class="step-desc">Slightly faster than yesterday. Em for 4 beats, Am for 4 beats. Switch on beat 1. Keep counting out loud. If 65 BPM feels too fast for clean switches, go back to 60 and stay there — there is no rush.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Listen to Work Song by Hozier <span class="step-time">4 min</span></div><div class="step-desc">Put your guitar down and just listen to Work Song. Notice the strumming rhythm — it's steady and repetitive. Notice when the chord changes happen. The verse uses Am and G almost exclusively. You already know Am. You are closer to playing this song than you think.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Play Am along with the song <span class="step-time">5 min</span></div><div class="step-desc">Play the song again. Just strum Am on every beat — don't worry about switching to other chords yet. Just feel what it's like to have your guitar making sound alongside music you love. This is why you're learning guitar.</div></div></div>
+          </div>
+          <div class="tip-box">Playing along with recordings is one of the best training tools that exists. Your ear starts learning the rhythm, the feel, and the timing of real music rather than just a metronome click. Do this with every song you love, even when you can only play one chord of it.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 6 REST -->
+    <div class="day-card" id="d6">
+      <div class="day-header" onclick="toggleDay('d6')">
+        <div class="day-num dn-rest">D6</div>
+        <div class="day-info">
+          <div class="day-title">Rest day</div>
+          <div class="day-subtitle">Active recovery — listening practice</div>
+        </div>
+        <span class="day-duration">Optional</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="rest-card">
+            <div class="rest-title">Rest is part of the plan</div>
+            <div class="rest-desc" style="margin-top:.5rem">Your fingers need a break to form calluses and your brain needs time to consolidate what you've practiced. If you want to do something music-related today, listen actively to your favorite artists. Pick one song and try to count the beats, notice when chords change, and identify the strumming rhythm. This builds your ear without straining your fingers.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 2 -->
+  <div class="week-section">
+    <div class="week-label">Week 2 — Adding G and C chords</div>
+
+    <!-- DAY 7 -->
+    <div class="day-card" id="d7">
+      <div class="day-header" onclick="toggleDay('d7')">
+        <div class="day-num dn-skill">D7</div>
+        <div class="day-info">
+          <div class="day-title">G chord introduction</div>
+          <div class="day-subtitle">Learn G and add it to your chord vocabulary</div>
+        </div>
+        <span class="day-duration">20 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>G is the most important chord in folk and indie music.</strong> Hozier, Bon Iver, Gregory Alan Isakov, and Mumford & Sons all center enormous amounts of their music in the key of G. Learning it today unlocks a huge amount of your repertoire.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Tune + Em/Am warm-up at 65 BPM <span class="step-time">4 min</span></div><div class="step-desc">Two minutes of Em → Am switching with the metronome. Notice how much easier this already feels compared to Day 1.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Learn the G chord <span class="step-time">6 min</span></div><div class="step-desc">G uses three fingers in the corners of the guitar. Middle finger on string 6 (thickest), 3rd fret. Index finger on string 5, 2nd fret. Ring finger on string 1 (thinnest), 3rd fret. (Some people use pinky on string 1 instead of ring — either is fine, but the pinky version prepares you better for chord transitions.) Strum all 6 strings. All 6 should ring. The stretch feels uncomfortable at first — this is normal.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">G → Em switching drill <span class="step-time">8 min</span></div><div class="step-desc">G and Em share the middle finger on string 5. Use this as an anchor — keep that finger on string 5, 2nd fret and only move your other fingers. Strum G four times, switch to Em four times, repeat. The shared finger trick makes this transition faster than you'd expect.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Play G → Em → Am continuously <span class="step-time">2 min</span></div><div class="step-desc">Three chords in a row. G (4 strums) → Em (4 strums) → Am (4 strums) → back to G. This is the basis of hundreds of folk and indie songs. It will feel messy — that's where you are right now, and that's exactly where you should be.</div></div></div>
+          </div>
+          <a class="video-link" href="https://www.youtube.com/watch?v=9G5JkCF6F4M" target="_blank">▶ G chord lesson</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 8 -->
+    <div class="day-card" id="d8">
+      <div class="day-header" onclick="toggleDay('d8')">
+        <div class="day-num dn-skill">D8</div>
+        <div class="day-info">
+          <div class="day-title">C chord introduction</div>
+          <div class="day-subtitle">Learn C and practice the G–C–Am–Em progression</div>
+        </div>
+        <span class="day-duration">20 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>C is the second-most important chord you'll learn.</strong> Together, G, C, Am, and Em form the I-VI-IV-V progression that appears in an enormous percentage of folk, indie, and alternative songs. Once you can switch between all four, you can approximate hundreds of songs.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Tune + G chord warm-up <span class="step-time">3 min</span></div><div class="step-desc">Form G and strum 8 times, counting in groups of four. Then switch to Em 8 times. Warm the shapes up before adding anything new.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Learn the C chord <span class="step-time">6 min</span></div><div class="step-desc">C uses three fingers in a diagonal line. Ring finger on string 5, 3rd fret. Middle finger on string 4, 2nd fret. Index finger on string 2, 1st fret. Strum strings 5 through 1 — do NOT strum the 6th string. The index finger position (string 2, 1st fret) is the tricky one — make sure it doesn't accidentally mute string 1. Pluck each string to check.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">The G → C → Am → Em progression <span class="step-time">10 min</span></div><div class="step-desc">This is the backbone of Work Song, and dozens of other songs in your taste. Practice it: G (4 strums) → C (4 strums) → Am (4 strums) → Em (4 strums). Repeat continuously. Look for shared fingers between chords — C and Am share the ring and middle fingers almost in the same position. This makes that switch faster.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Identify the progression in Work Song <span class="step-time">1 min</span></div><div class="step-desc">Put Work Song on. Listen for the G → C → Am → Em pattern in the verse. You're hearing the exact chords you just practiced. Your brain is already connecting the sounds to the shapes.</div></div></div>
+          </div>
+          <a class="video-link" href="https://www.youtube.com/watch?v=3pNMSInABos" target="_blank">▶ 4-chord progression practice</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 9 -->
+    <div class="day-card" id="d9">
+      <div class="day-header" onclick="toggleDay('d9')">
+        <div class="day-num dn-theory">D9</div>
+        <div class="day-info">
+          <div class="day-title">Music theory — what is a key?</div>
+          <div class="day-subtitle">Why G, C, Am, and Em always sound right together</div>
+        </div>
+        <span class="day-duration">20 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>Today you learn WHY the chords you've been playing sound right together.</strong> This is the single most useful piece of music theory for a guitarist — and once it clicks, you'll start hearing the structure of every song you love.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Warm up — four-chord progression <span class="step-time">4 min</span></div><div class="step-desc">G → C → Am → Em, four strums each, twice through. Make it as clean as you can.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">What is a key? <span class="step-time">6 min</span></div><div class="step-desc">A key is a family of notes that sound good together. The key of G major contains exactly these notes: G A B C D E F#. All the chords built from these notes belong in the key of G. G major (I), Am (II), Bm (III), C major (IV), D major (V), Em (VI), F#dim (VII). Notice: G, C, Am, and Em are all on this list. That's why they sound right together — they're all in the same family.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Play the I–IV–V–I progression <span class="step-time">6 min</span></div><div class="step-desc">In G major: I = G, IV = C, V = D (you'll learn D next week), VI = Em. Play G → C → G → Em repeatedly. Listen to how G feels like "home" — it's the tonic, the place the music wants to return to. This feeling of resolution is the I chord doing its job.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Identify the key of Work Song <span class="step-time">4 min</span></div><div class="step-desc">Work Song by Hozier is in the key of Am (A minor). Its main chords are Am, G, C, and F. All four are in the key of A minor. Listen to the song and notice how Am feels like "home" — the place the music resolves to. This is the tonic minor chord doing the same job G does in a major key.</div></div></div>
+          </div>
+          <div class="info-box">Once you know a song's key, you immediately know which chords are likely to appear in it. This is how professional musicians learn songs quickly — they identify the key first, then narrow down the possibilities dramatically.</div>
+          <a class="video-link" href="https://www.youtube.com/watch?v=kvGYl8SQBJ0" target="_blank">▶ Keys and scales explained simply</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 10 -->
+    <div class="day-card" id="d10">
+      <div class="day-header" onclick="toggleDay('d10')">
+        <div class="day-num dn-skill">D10</div>
+        <div class="day-info">
+          <div class="day-title">Down-up strumming pattern</div>
+          <div class="day-subtitle">Adding upstrokes — the sound of folk guitar</div>
+        </div>
+        <span class="day-duration">20 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>You've been strumming down only — that changes today.</strong> Adding upstrokes creates the rhythmic feel of acoustic folk music. The key insight: on downstrokes, strum all strings. On upstrokes, only catch the top 3 or 4 strings. This gives folk music its characteristic sound.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Tune + warm up all four chords <span class="step-time">4 min</span></div><div class="step-desc">G → C → Am → Em, two strums each. Go through it twice. Just warming up.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Add the upstroke — pattern: D DU <span class="step-time">6 min</span></div><div class="step-desc">Stay on Em. Pattern: Down — Down — Up. Count: "1 — 2 — and." The "and" is the upstroke, happening between beats 2 and 3. The upstroke should be a light, relaxed flick — don't try to catch every string. Practice this continuously on Em for 6 minutes at 60 BPM before adding chord changes.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Apply D DU to the four-chord progression <span class="step-time">8 min</span></div><div class="step-desc">G (D DU) → C (D DU) → Am (D DU) → Em (D DU). Switch every 3 strums. This will feel awkward — you're coordinating two hands doing different things while also switching chords. Slow it down. Start at 50 BPM if needed.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Play the progression and feel the folk rhythm <span class="step-time">2 min</span></div><div class="step-desc">Without a metronome. Just play G → C → Am → Em with the D DU pattern at a comfortable pace. Listen to how it sounds like actual music now, not just individual chords.</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 11 -->
+    <div class="day-card" id="d11">
+      <div class="day-header" onclick="toggleDay('d11')">
+        <div class="day-num dn-song">D11</div>
+        <div class="day-info">
+          <div class="day-title">First song attempt — Work Song (Hozier)</div>
+          <div class="day-subtitle">Play your first complete song from start to finish</div>
+        </div>
+        <span class="day-duration">20 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>Today you play a real song for the first time.</strong> It will not be perfect. It will be slow, there will be buzzes, and you'll lose the chord changes. That's fine. The goal today is just to play through Work Song from beginning to end without stopping, even if it sounds rough.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Watch the tutorial first <span class="step-time">5 min</span></div><div class="step-desc">Watch the Work Song beginner tutorial all the way through before you play a note. Understand the chord order, where the changes happen, and what the strumming pattern is. Then close it and try it yourself.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Practice just the verse chords <span class="step-time">7 min</span></div><div class="step-desc">The verse is Am → G → C → G. That's it. Practice switching those four chords in order, two strums each, until the sequence feels somewhat automatic. Don't move to the full song until this loop feels manageable.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Play through the whole song slowly <span class="step-time">6 min</span></div><div class="step-desc">Put the tutorial on and play along — but at half the original speed if needed. When you lose a chord change, don't stop. Skip the chord, keep strumming, and catch the next change. Never stop mid-song to fix a mistake. Train yourself to keep going.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Record yourself playing it <span class="step-time">2 min</span></div><div class="step-desc">Record one full play-through. Don't listen to it yet — save it for the end of Phase 1 to compare with your Week 4 version.</div></div></div>
+          </div>
+          <div class="tip-box">The number one rule for playing songs: never stop. When you stop to fix a mistake mid-song, you're training yourself to stop mid-song. Real music never stops. Keep the rhythm going and let bad notes pass.</div>
+          <a class="video-link" href="https://www.youtube.com/watch?v=jAPmkfVWMXk" target="_blank">▶ Work Song beginner tutorial</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 12 REST -->
+    <div class="day-card" id="d12">
+      <div class="day-header" onclick="toggleDay('d12')">
+        <div class="day-num dn-rest">D12</div>
+        <div class="day-info"><div class="day-title">Rest day</div><div class="day-subtitle">Let your fingers and brain consolidate</div></div>
+        <span class="day-duration">Rest</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body"><div class="lesson-content"><div class="rest-card"><div class="rest-title">You played your first song yesterday.</div><div class="rest-desc" style="margin-top:.5rem">Rest today. If you want to stay engaged, listen to Work Song and try to sing along to the chord changes — say "Am" "G" "C" "G" in your head as you hear each change. Active listening without the guitar is still practice.</div></div></div></div>
+    </div>
+  </div>
+
+  <!-- WEEK 3 -->
+  <div class="week-section">
+    <div class="week-label">Week 3 — D chord, the full strumming pattern, and Work Song</div>
+
+    <div class="day-card" id="d13">
+      <div class="day-header" onclick="toggleDay('d13')">
+        <div class="day-num dn-skill">D13</div>
+        <div class="day-info"><div class="day-title">D chord + the folk strumming pattern</div><div class="day-subtitle">Learn D and master D-DU-UDU</div></div>
+        <span class="day-duration">20 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>D is the last of your essential open chords.</strong> And today you learn the strumming pattern D-DU-UDU — the most common pattern in folk and acoustic rock. Once you have these two things together, you can play a huge number of complete songs.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Tune + warm up <span class="step-time">3 min</span></div><div class="step-desc">G → C → Am → Em, D DU pattern, two full loops. Notice how much smoother this is compared to week 1.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Learn the D chord <span class="step-time">5 min</span></div><div class="step-desc">D is a triangle shape on the top four strings. Index finger on string 3 (G string), 2nd fret. Ring finger on string 2 (B string), 3rd fret. Middle finger on string 1 (high E), 2nd fret. Strum strings 4 through 1 only — never strum the 5th or 6th string on a D chord. The fingering is tight and the triangle shape feels cramped. This eases with practice.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Learn the D-DU-UDU strumming pattern <span class="step-time">7 min</span></div><div class="step-desc">This is the pattern: Down — Down-Up — Up-Down-Up. Count it: "1 — 2-and — and-3-and." The key is keeping your strumming hand moving constantly like a pendulum — down on downbeats, up on upbeats. Even when you're not hitting the strings, your hand keeps moving in rhythm. Practice on G for the full 7 minutes before adding chord changes.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Apply to G → D → Em → C <span class="step-time">5 min</span></div><div class="step-desc">This progression + this strumming pattern = the feel of dozens of folk songs. Keep your strumming hand moving even when your fretting hand is switching. The rhythm never stops.</div></div></div>
+          </div>
+          <a class="video-link" href="https://www.youtube.com/watch?v=oHQPRJNWcHM" target="_blank">▶ Folk strumming patterns</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card" id="d14">
+      <div class="day-header" onclick="toggleDay('d14')">
+        <div class="day-num dn-song">D14</div>
+        <div class="day-info"><div class="day-title">Work Song — deep practice</div><div class="day-subtitle">Learn verse, chorus, and bridge separately</div></div>
+        <span class="day-duration">25 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>Today you stop just surviving the song and start actually learning it.</strong> Professional musicians don't practice songs from start to finish repeatedly — they isolate the hard sections and drill them until they're easier than the easy sections. Today you do the same with Work Song.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Identify the hardest chord switch in the song <span class="step-time">3 min</span></div><div class="step-desc">Play through Work Song once. Find the one chord transition that causes you to lose the rhythm every time. That's your target for today. Common culprits: the G → C switch or the C → Am switch.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Drill that single transition for 10 minutes <span class="step-time">10 min</span></div><div class="step-desc">Just those two chords. Four strums each, metronome at 60 BPM. Nothing else. Ten minutes of this one switch. This is how songs get learned — not by playing them over and over, but by identifying the weak point and attacking it directly.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Play through the full song twice <span class="step-time">10 min</span></div><div class="step-desc">Now play Work Song twice in a row without stopping. Notice whether that drilled transition is cleaner. It will be. Ending with the full song consolidates the drilling.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">1-minute chord change test — week 3 check <span class="step-time">2 min</span></div><div class="step-desc">Compare to your baseline from Day 2. Write it down.</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card" id="d15">
+      <div class="day-header" onclick="toggleDay('d15')">
+        <div class="day-num dn-theory">D15</div>
+        <div class="day-info"><div class="day-title">Theory — major vs minor and why it matters</div><div class="day-subtitle">The emotional difference between major and minor chords</div></div>
+        <span class="day-duration">20 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>Major chords sound bright. Minor chords sound dark and emotional.</strong> This is the single most important distinction in music — and it directly explains why Hozier's music sounds the way it does. Almost everything you love is built on the tension between these two qualities.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Feel the difference — G vs Am <span class="step-time">3 min</span></div><div class="step-desc">Strum G four times and listen — bright, open, resolved. Then strum Am four times and listen — darker, more emotional, slightly tense. Switch between them slowly and really hear the difference. Major = happy/bright. Minor = dark/emotional. This isn't a rule — it's a physical reality of the intervals between the notes.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Why minor chords sound dark <span class="step-time">5 min</span></div><div class="step-desc">A minor chord has a "flattened third" — the middle note of the three-note chord is lowered by one fret compared to a major chord. Am contains A, C, E. A major contains A, C#, E. That one note (C vs C#) is what creates the entire emotional difference. Play Am, then imagine raising your middle finger from fret 2 to fret 3 — that would give you A major. Try it. Hear the shift from dark to bright with a single finger movement.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Find major and minor in your favorite songs <span class="step-time">7 min</span></div><div class="step-desc">Listen to Work Song. The verse stays mostly on Am and G — minor-led. The chorus lifts to C and G — more major. This is Hozier moving between darkness and light with chord choices. Listen for this in everything you play from now on.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Play the Am → C progression repeatedly <span class="step-time">5 min</span></div><div class="step-desc">Am (minor, dark) → C (major, bright). Just these two. Feel the emotional arc: tension → release, dark → light. This two-chord movement is at the heart of so much folk and indie music. Gregory Alan Isakov, Bon Iver, and Hozier use it constantly.</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card" id="d16">
+      <div class="day-header" onclick="toggleDay('d16')">
+        <div class="day-num dn-free">D16</div>
+        <div class="day-info"><div class="day-title">Free play + consolidation</div><div class="day-subtitle">Play what you love, explore, have fun</div></div>
+        <span class="day-duration">20 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>No structured exercises today.</strong> Free play sessions are as important as drills. Today you remind yourself why you're doing this.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Play along with your playlist <span class="step-time">15 min</span></div><div class="step-desc">Put on your favorite songs. Play whatever chords you know along with them. When you don't know the chord, just strum the one that sounds most right. Don't pause the song. Don't look anything up. Just play and listen and feel the music.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Play Work Song for someone <span class="step-time">5 min</span></div><div class="step-desc">Or record it and send it to someone. Playing for another person — even if it's imperfect — activates a different kind of attention and motivation than practicing alone. It's one of the most powerful tools for staying consistent.</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REST -->
+    <div class="day-card" id="d17">
+      <div class="day-header" onclick="toggleDay('d17')">
+        <div class="day-num dn-rest">D17</div>
+        <div class="day-info"><div class="day-title">Rest day</div><div class="day-subtitle">Recovery and passive listening</div></div>
+        <span class="day-duration">Rest</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body"><div class="lesson-content"><div class="rest-card"><div class="rest-title">Rest day — active listening only</div><div class="rest-desc" style="margin-top:.5rem">Listen to Flightless Bird by Iron & Wine, which is your next song target in Phase 1. Notice the fingerpicked intro, the gentle chord changes, and the sparse arrangement. You'll be able to play this by end of week 4.</div></div></div></div>
+    </div>
+  </div>
+
+  <!-- WEEK 4 -->
+  <div class="week-section">
+    <div class="week-label">Week 4 — Fmaj7, fingerpicking intro, and phase graduation</div>
+
+    <div class="day-card" id="d18">
+      <div class="day-header" onclick="toggleDay('d18')">
+        <div class="day-num dn-skill">D18</div>
+        <div class="day-info"><div class="day-title">Fmaj7 — the easy F chord</div><div class="day-subtitle">A beautiful, beginner-friendly F variation</div></div>
+        <span class="day-duration">20 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>The full F barre chord is Phase 2 material.</strong> But Fmaj7 is a gorgeous, simpler version of F that appears in hundreds of folk songs and sounds just as beautiful — sometimes more so. It's used by Hozier, Gregory Alan Isakov, and John Mayer constantly.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Tune + full four-chord warm-up <span class="step-time">4 min</span></div><div class="step-desc">G → C → Am → Em with the D-DU-UDU pattern. Two full loops. Feel how much easier this is than week 1.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Learn Fmaj7 <span class="step-time">5 min</span></div><div class="step-desc">Fmaj7 uses just two fingers. Index finger bars strings 1 AND 2 at fret 1 (press both down with the flat of your index finger). Middle finger on string 3, 2nd fret. Strum strings 4 through 1. Leave strings 5 and 6 out. This chord sounds lush and open — very different from the harsh barre F. Many professional guitarists prefer it.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Am → Fmaj7 → C → G progression <span class="step-time">8 min</span></div><div class="step-desc">This is the i-VI-III-VII progression in A minor and it's everywhere in Hozier. Practice it with four strums per chord until the switches feel somewhat smooth. The Am → Fmaj7 switch is the key one to drill — find any shared finger positions and use them as anchors.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Listen for Fmaj7 in songs you know <span class="step-time">3 min</span></div><div class="step-desc">Play Something In The Way She Moves by James Taylor or Work Song. Notice the warm, slightly unresolved quality of that Fmaj7 chord sound. You'll start hearing it everywhere now that you know it.</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card" id="d19">
+      <div class="day-header" onclick="toggleDay('d19')">
+        <div class="day-num dn-skill">D19</div>
+        <div class="day-info"><div class="day-title">Intro to fingerpicking</div><div class="day-subtitle">Your first fingerpicking pattern on Em and Am</div></div>
+        <span class="day-duration">20 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>Fingerpicking is the sound of Bon Iver, Gregory Alan Isakov, and acoustic John Mayer.</strong> Today is just an introduction — you'll develop it fully in Phase 2. But planting the seed now means it won't feel entirely foreign when you return to it.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Set your right hand position <span class="step-time">3 min</span></div><div class="step-desc">Rest your thumb on string 6 (or 5). Your index (i) sits over string 3, middle (m) over string 2, ring (a) over string 1. These are your default positions. Your hand should float just above the strings without resting on the guitar body.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">The basic pattern: p-i-m-a <span class="step-time">8 min</span></div><div class="step-desc">On Em, fretted: Thumb plucks string 6 (low E), then index plucks string 3, then middle plucks string 2, then ring plucks string 1. p-i-m-a. One finger at a time, slowly. Each note should ring clearly and not be muted by other fingers. Repeat this four-note pattern continuously for 8 minutes. Don't rush it.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Apply to Am <span class="step-time">5 min</span></div><div class="step-desc">Same pattern on Am. Thumb on string 5 (A string) instead of 6. p-i-m-a. Then alternate: 4 times on Em, 4 times on Am. The switch will disrupt your picking hand — keep the pattern going and let your fretting hand make the chord change underneath it.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Listen to Skinny Love by Bon Iver <span class="step-time">2 min</span></div><div class="step-desc">This is your Phase 2 song target. Listen to the fingerpicking pattern. You just learned the building blocks of that sound today. In 4 weeks you'll be able to play it.</div></div></div>
+          </div>
+          <a class="video-link" href="https://www.youtube.com/watch?v=kMDFxFIMFsQ" target="_blank">▶ Fingerpicking for beginners</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card" id="d20">
+      <div class="day-header" onclick="toggleDay('d20')">
+        <div class="day-num dn-song">D20</div>
+        <div class="day-info"><div class="day-title">Phase 1 graduation — full performance</div><div class="day-subtitle">Play Work Song + compare day 1 recording to today</div></div>
+        <span class="day-duration">25 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>This is your Phase 1 graduation session.</strong> Today you record yourself playing Work Song from start to finish, then watch it back alongside your Day 1 recording. This comparison is the most powerful motivational tool in the plan.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Warm up — all five chords <span class="step-time">5 min</span></div><div class="step-desc">G, C, Am, Em, Fmaj7. Two strums each in a loop. Then D chord. All five, warming up cleanly.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">1-minute chord change test — final Phase 1 score <span class="step-time">2 min</span></div><div class="step-desc">Em → Am switches in 1 minute. Write it down next to your Day 2 baseline. The improvement will be significant.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Record Work Song — full performance <span class="step-time">8 min</span></div><div class="step-desc">Set up your phone camera. Play Work Song from start to finish without stopping. Don't restart if you make a mistake. One full, continuous take. This is your Phase 1 graduation recording.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Watch Day 1 recording vs today's recording <span class="step-time">5 min</span></div><div class="step-desc">Play them back to back. The difference in chord clarity, switching speed, strumming rhythm, and overall sound will be dramatic. This is four weeks of daily 20-minute practice. Remember this feeling when Phase 2 feels hard.</div></div></div>
+            <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">Free play — celebrate <span class="step-time">5 min</span></div><div class="step-desc">Play whatever you want. You've completed Phase 1. You now know 5 open chords, a full strumming pattern, the basics of music theory, and you can play a complete Hozier song. That's real.</div></div></div>
+          </div>
+          <div class="tip-box">Phase 2 begins tomorrow. You'll add fingerpicking, the F barre chord, D chord, and your first electric guitar session. The foundation you've built this phase makes everything in Phase 2 learnable. You're ready.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================ PHASE 2 ============================================================ -->
+<div id="p2" class="phase">
+<div class="container">
+  <div class="phase-hdr">
+    <h2>Phase 2 — Build (Weeks 5–10)</h2>
+    <p>You have the foundations. Now you build the techniques that define your favorite music — fingerpicking for Bon Iver and Gregory Alan Isakov, the F barre chord that unlocks every key, and your first session on electric guitar. Sessions get longer because you have more to practice. Keep the quality high — 25 focused minutes beats 45 distracted minutes every time.</p>
+    <div class="phase-meta">
+      <span class="meta-chip chip-amber">Weeks 5–10</span>
+      <span class="meta-chip chip-teal">25–35 min/day</span>
+      <span class="meta-chip chip-teal">Acoustic + electric</span>
+      <span class="meta-chip chip-teal">5 days/week</span>
+    </div>
+  </div>
+
+  <div class="week-section">
+    <div class="week-label">Week 5 — F chord and fingerpicking development</div>
+
+    <div class="day-card" id="p2d1">
+      <div class="day-header" onclick="toggleDay('p2d1')">
+        <div class="day-num dn-skill">D21</div>
+        <div class="day-info"><div class="day-title">Full F barre chord — introduction</div><div class="day-subtitle">The hardest chord you'll learn, approached correctly</div></div>
+        <span class="day-duration">30 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>The F barre chord stops most beginners. Here's why it doesn't have to stop you.</strong> The secret is that you don't need to play it cleanly from day one. You need to practice it a little every day for several weeks. The strength and flexibility build gradually. Don't judge your F chord by how it sounds today — judge it by how it sounds in week 8.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Tune + Phase 1 warm-up <span class="step-time">5 min</span></div><div class="step-desc">G → C → Am → Em with strumming pattern. Two loops. Remind your fingers they know how to do this.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">The Fmaj7 as your bridge to F <span class="step-time">3 min</span></div><div class="step-desc">Play Fmaj7 and get comfortable with your index finger pressing strings 1 and 2 at fret 1. This index finger position is exactly what you'll use in the full F barre chord — you're extending it to cover all 6 strings.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Attempt the full F barre chord <span class="step-time">10 min</span></div><div class="step-desc">Lay your index finger flat across all 6 strings at fret 1. Press firmly — your index finger needs to be as close to the 1st fret as possible without being on it. Now add: ring finger on string 5, 3rd fret. Pinky on string 4, 3rd fret. Middle finger on string 3, 2nd fret. Pluck each string individually. Most will buzz. That's normal. Work on pressing harder and rolling your index finger slightly toward the nut (the end of the neck). Spend 10 minutes here — don't give up, but don't hurt yourself.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Practice Fmaj7 → C → G → Am <span class="step-time">7 min</span></div><div class="step-desc">Use Fmaj7 in place of F for now. This progression appears in dozens of folk songs. Clean Fmaj7 is better than buzzing F. You'll replace it with the full F as your barre chord develops over the next 3 weeks.</div></div></div>
+            <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">5 minutes of F barre chord attempts to end the session <span class="step-time">5 min</span></div><div class="step-desc">Every session from now on ends with 5 minutes on the F barre chord. This daily practice is the only thing that builds barre chord strength. There's no shortcut.</div></div></div>
+          </div>
+          <div class="warn-box">If your wrist or hand hurts (not muscle burn — actual pain), stop immediately. Barre chords require strength that takes weeks to build. Light muscle fatigue is fine. Sharp pain in your wrist or joints means you're straining too hard.</div>
+          <a class="video-link" href="https://www.youtube.com/watch?v=BsBTMQH3fwA" target="_blank">▶ How to play the F chord (Justin Guitar)</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card" id="p2d2">
+      <div class="day-header" onclick="toggleDay('p2d2')">
+        <div class="day-num dn-skill">D22</div>
+        <div class="day-info"><div class="day-title">Travis picking pattern — deep practice</div><div class="day-subtitle">The fingerpicking style of folk and indie guitar</div></div>
+        <span class="day-duration">30 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>Travis picking is the defining technique of folk guitar.</strong> It's what Gregory Alan Isakov, early Bon Iver, and acoustic John Mayer use. The pattern feels impossible at first because your thumb and fingers need to become independent — like patting your head and rubbing your stomach. This independence takes time. Give it that time.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Tune + p-i-m-a warm-up on Em <span class="step-time">4 min</span></div><div class="step-desc">The basic fingerpicking pattern from Day 19. Get your right hand into position and flow through p-i-m-a on Em for 4 minutes.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Travis picking — thumb alternation <span class="step-time">8 min</span></div><div class="step-desc">On Em, alternating thumb pattern: Thumb string 6, index string 3, thumb string 5, middle string 2. Repeat: 6-3-5-2, 6-3-5-2. Your thumb alternates between the two bass strings while your fingers pick the treble strings. This is the essence of Travis picking. Do only this for 8 minutes. Don't rush.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Apply to Am and switch between Em and Am <span class="step-time">10 min</span></div><div class="step-desc">On Am, the thumb starts on string 5 (not 6). Pattern: 5-3-4-2, 5-3-4-2. Practice Em and Am separately, then switch. The chord switch while maintaining the picking pattern is the challenge. Your picking hand must keep moving even as your fretting hand changes shape.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Listen to The Stable Song and try to follow the picking <span class="step-time">5 min</span></div><div class="step-desc">Listen to Gregory Alan Isakov's The Stable Song. Try to air-finger the picking pattern along with the song. You'll hear the thumb alternating bass notes underneath the finger-picked melody. You're learning to hear what you're also learning to play.</div></div></div>
+            <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">F barre chord practice <span class="step-time">3 min</span></div><div class="step-desc">Three minutes on the F barre chord. End every session with it.</div></div></div>
+          </div>
+          <a class="video-link" href="https://www.youtube.com/watch?v=R1OVGiWJ1mU" target="_blank">▶ Travis picking tutorial</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card" id="p2d3">
+      <div class="day-header" onclick="toggleDay('p2d3')">
+        <div class="day-num dn-theory">D23</div>
+        <div class="day-info"><div class="day-title">Theory — the major scale and how chords are built</div><div class="day-subtitle">Understanding scales gives you the map of the fretboard</div></div>
+        <span class="day-duration">25 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>The major scale is the DNA of Western music.</strong> Every chord, every key, every song you love is built from it. Understanding it takes 10 minutes. Using it fluently takes years. Today you understand it — fluency comes naturally over time.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Warm up — Travis picking on Em and Am <span class="step-time">5 min</span></div><div class="step-desc">Five minutes of Travis picking, switching between Em and Am. Keep your thumb alternating.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Play the G major scale on one string <span class="step-time">8 min</span></div><div class="step-desc">On string 6 (low E): Open = E. Fret 3 = G. The G major scale starting from G: G(3) A(5) B(7) C(8) D(10) E(12) F#(14) G(15). Play each fret slowly, saying the note name out loud. Then play it backward. The pattern of gaps (W W H W W W H, where W=2 frets and H=1 fret) is the same for every major scale — only the starting position changes.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">How chords are built from the scale <span class="step-time">7 min</span></div><div class="step-desc">Take notes 1, 3, and 5 of the G major scale: G, B, D. That's a G major chord. Take notes 6, 1, and 3 of G major: E, G, B. That's an Em chord. Every chord in the key of G is built by stacking scale notes. This is why the key of G "contains" specific chords — because its scale contains specific notes.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">F barre chord practice <span class="step-time">5 min</span></div><div class="step-desc">Five minutes of F barre chord attempts. Is it getting any cleaner? Even marginally? That's progress.</div></div></div>
+          </div>
+          <a class="video-link" href="https://www.youtube.com/watch?v=kvGYl8SQBJ0" target="_blank">▶ Keys and scales explained</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card" id="p2d4">
+      <div class="day-header" onclick="toggleDay('p2d4')">
+        <div class="day-num dn-song">D24</div>
+        <div class="day-info"><div class="day-title">Skinny Love — Bon Iver (intro)</div><div class="day-subtitle">Your first fingerpicking song target</div></div>
+        <span class="day-duration">30 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>Skinny Love is where your fingerpicking becomes music.</strong> The picking pattern in this song is more complex than what you've practiced, but the chord shapes are ones you mostly know. Don't worry about playing it at full speed yet — even at half tempo it sounds beautiful.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Watch the tutorial — study before playing <span class="step-time">5 min</span></div><div class="step-desc">Watch the Skinny Love tutorial all the way through. Identify the chord shapes used, the picking pattern, and which sections feel hardest. Map it out mentally before your fingers attempt it.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Learn the opening chord (Bm open voicing) <span class="step-time">8 min</span></div><div class="step-desc">Skinny Love uses an open Bm voicing: index finger on string 5, 2nd fret. Middle finger on string 4, 4th fret. Ring finger on string 3, 4th fret. (In the tutorial they may also use a capo.) Practice this shape until it rings cleanly. It's unusual but learnable.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Practice the intro picking pattern slowly <span class="step-time">10 min</span></div><div class="step-desc">Work through just the intro picking pattern at half tempo. Use the pause button on the tutorial — watch one bar, try it, watch the next bar, try it. Build it phrase by phrase. This is how professional musicians learn songs they don't know.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Play the intro through 3 times <span class="step-time">5 min</span></div><div class="step-desc">Whatever you've learned of the intro, play it three times continuously. Don't stop for mistakes. Keep the picking hand moving.</div></div></div>
+            <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">F barre chord <span class="step-time">2 min</span></div><div class="step-desc">Two minutes. Every session.</div></div></div>
+          </div>
+          <a class="video-link" href="https://www.youtube.com/watch?v=s8sRoXNBfkA" target="_blank">▶ Skinny Love tutorial</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card" id="p2d5">
+      <div class="day-header" onclick="toggleDay('p2d5')">
+        <div class="day-num dn-free">D25</div>
+        <div class="day-info"><div class="day-title">Free play + song review</div><div class="day-subtitle">Consolidate the week and play what you love</div></div>
+        <span class="day-duration">25 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>End of week 5. Play something you already know well before trying anything new.</strong></div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Play Work Song — full run-through <span class="step-time">5 min</span></div><div class="step-desc">Your Phase 1 song. Notice how much more automatic it feels now. This is what a few extra weeks of practice does.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Skinny Love intro — practice section from this week <span class="step-time">10 min</span></div><div class="step-desc">Whatever you learned of the Skinny Love intro, play it slowly and cleanly three times. Then try slightly faster. Gradually approach tempo.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Free play along with your playlist <span class="step-time">8 min</span></div><div class="step-desc">No structure. Just play along with whatever you're listening to and enjoy the music.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">F barre chord — weekly assessment <span class="step-time">2 min</span></div><div class="step-desc">Attempt the full F barre chord. How does it sound compared to Day 21? Even one string ringing more clearly is progress worth acknowledging.</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="week-section">
+    <div class="week-label">Weeks 6–8 — Electric guitar, pentatonic scale, and song building</div>
+
+    <div class="day-card" id="p2d6">
+      <div class="day-header" onclick="toggleDay('p2d6')">
+        <div class="day-num dn-skill">D31</div>
+        <div class="day-info"><div class="day-title">First electric guitar session</div><div class="day-subtitle">Setup, tone, and how electric playing differs from acoustic</div></div>
+        <span class="day-duration">30 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>Switching to electric feels like cheating at first.</strong> The strings are lighter, the action is lower, and chords feel dramatically easier. This is normal. Electric guitar is genuinely easier to play physically — it's a different instrument that rewards different techniques.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Plug in and set your tone <span class="step-time">5 min</span></div><div class="step-desc">Connect your electric to your amp (or audio interface). Set the gain (distortion) to zero or very low — start completely clean. Gain hides mistakes. Clean tone reveals them. Turn the volume to a comfortable listening level. Make sure your guitar is in tune using GuitarTuna.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Play your Phase 1 chords on electric <span class="step-time">8 min</span></div><div class="step-desc">G, C, Am, Em, Fmaj7. Notice how much easier they feel. Your fingers barely need to press. But notice also how every mistake is MORE audible — buzzes, muted strings, and sloppy transitions are all amplified. Clean tone on electric is the best teacher you can have.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Learn the pentatonic scale — box 1 <span class="step-time">12 min</span></div><div class="step-desc">This is the most important scale in rock, blues, and indie guitar. In the key of Am, box 1 starts at fret 5. Pattern: String 6: frets 5-8. String 5: frets 5-7. String 4: frets 5-7. String 3: frets 5-7. String 2: frets 5-8. String 1: frets 5-8. Play up and down slowly. Say "Am pentatonic" as you play it. This 6-string shape is the foundation of almost every solo John Mayer has ever played.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Improvise freely with the pentatonic scale <span class="step-time">5 min</span></div><div class="step-desc">Put on a backing track in Am (search "Am backing track folk" on YouTube). Play any notes from the pentatonic box you just learned. They will all sound right. This is improvisation — and you're doing it on your very first electric session.</div></div></div>
+          </div>
+          <div class="tip-box">Role Model's indie guitar sound comes largely from clean electric tone with the pentatonic and minor scales. What you're practicing today is the exact technical foundation of that sound.</div>
+          <a class="video-link" href="https://www.youtube.com/watch?v=dn5C6GS2RCE" target="_blank">▶ Minor pentatonic scale lesson</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card" id="p2d7">
+      <div class="day-header" onclick="toggleDay('p2d7')">
+        <div class="day-num dn-skill">D34</div>
+        <div class="day-info"><div class="day-title">Power chords + The Stable Song</div><div class="day-subtitle">Two-finger power chords and your second fingerpicking song</div></div>
+        <span class="day-duration">35 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>Power chords are the building block of alternative and indie rock.</strong> Two fingers, moveable shape, works anywhere on the neck. Meanwhile, The Stable Song by Gregory Alan Isakov is one of the most beautiful fingerpicked folk songs you can learn — and it uses only chords you already know.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Power chord shape <span class="step-time">8 min</span></div><div class="step-desc">On electric: Index finger on string 6, any fret. Ring finger two frets up, one string down (string 5). That's a power chord. Index on fret 3 = G5. Fret 5 = A5. Fret 7 = B5. Move the same shape up and down the neck. Power chords have no major or minor quality — they're neutral and heavy. Strum only the two fretted strings plus string 4 for thickness.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Power chord progression — G5 C5 D5 <span class="step-time">7 min</span></div><div class="step-desc">Practice G5 (fret 3) → C5 (fret 8 on string 5) → D5 (fret 10 on string 5) → G5. The C5 and D5 are on the A string using the same shape. Listen to how it sounds with a tiny bit of gain added to your amp. This is the basic vocabulary of alternative rock.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">The Stable Song — switch to acoustic <span class="step-time">15 min</span></div><div class="step-desc">Switch to acoustic. Watch the Stable Song tutorial. The chords are G, Em, C, D — all familiar. The fingerpicking pattern is the new challenge. Learn the verse picking pattern first, phrase by phrase. Then the chorus. Focus on your thumb alternating bass notes cleanly.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">F barre chord <span class="step-time">5 min</span></div><div class="step-desc">Daily F barre practice. By week 7 you should start hearing at least the middle strings ringing more clearly.</div></div></div>
+          </div>
+          <a class="video-link" href="https://www.youtube.com/watch?v=K6N_4JdSKlQ" target="_blank">▶ Power chord tutorial</a>
+          <a class="video-link" href="https://www.youtube.com/watch?v=dKJ0IfvEFsI" target="_blank">▶ The Stable Song tutorial</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card" id="p2d8">
+      <div class="day-header" onclick="toggleDay('p2d8')">
+        <div class="day-num dn-theory">D38</div>
+        <div class="day-info"><div class="day-title">Theory — the Nashville Number System</div><div class="day-subtitle">Learn any song faster by thinking in numbers, not chord names</div></div>
+        <span class="day-duration">25 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>The Nashville Number System is how professional session musicians communicate instantly in any key.</strong> Instead of saying "G, C, Am, Em," they say "1, 4, 6m, 3m." Once you understand this, you can transpose any song to any key instantly — and you understand why chord progressions work regardless of what key they're in.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Number the chords in G major <span class="step-time">5 min</span></div><div class="step-desc">In the key of G: G=1, Am=2m, Bm=3m, C=4, D=5, Em=6m, F#dim=7dim. Work Song's verse (Am G C G) in the key of Am is: 1m, VII, III, VII. Play the Work Song progression and say the numbers out loud instead of chord names.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">The most common progressions — decoded <span class="step-time">8 min</span></div><div class="step-desc">1-4-5-1 (G-C-D-G): The foundation of blues and country. 1-5-6m-4 (G-D-Em-C): The "Axis of Awesome" progression — Let Her Go, Can't Help Falling in Love, hundreds more. 1-6m-4-5 (G-Em-C-D): Classic folk. Play each one and listen for songs you recognize.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Apply to a Hozier song <span class="step-time">7 min</span></div><div class="step-desc">From Eden by Hozier is mostly 1-4-1-5 in Dm. In the key of D minor: Dm(1) Gm(4) Dm(1) A(5). Understanding the number system lets you identify that Hozier uses the same fundamental progressions as hundreds of folk songs — just with different chord textures and voicings layered on top.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">F barre chord <span class="step-time">5 min</span></div><div class="step-desc">Daily practice. You're building strength you can't rush.</div></div></div>
+          </div>
+          <a class="video-link" href="https://www.youtube.com/watch?v=yqHpHWMiAoA" target="_blank">▶ Nashville number system explained</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="week-section">
+    <div class="week-label">Weeks 9–10 — Phase 2 completion and song mastery</div>
+
+    <div class="day-card" id="p2d9">
+      <div class="day-header" onclick="toggleDay('p2d9')">
+        <div class="day-num dn-song">D43</div>
+        <div class="day-info"><div class="day-title">Holocene — Bon Iver (intro)</div><div class="day-subtitle">Capo 3 and atmospheric fingerpicking</div></div>
+        <span class="day-duration">35 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>Holocene is one of the most beautiful fingerpicking songs ever recorded.</strong> With a capo on fret 3, it uses open chord shapes you already know — but the picking pattern creates that vast, atmospheric Bon Iver sound. This is where your fingerpicking technique starts to feel like music.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Place capo on fret 3 <span class="step-time">2 min</span></div><div class="step-desc">Clamp the capo firmly across all strings at fret 3. Re-tune with GuitarTuna — capos can slightly pull strings sharp. The guitar now "thinks" fret 3 is the open position. When you form a G chord shape, you're actually playing Bb. But don't worry about that — the shapes work exactly the same.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Learn the chord shapes for Holocene <span class="step-time">8 min</span></div><div class="step-desc">The song uses C, G/B, Am, and F shapes (with capo 3, these sound like Eb, Bb/D, Cm, Ab). Practice them without the picking pattern first — just strum to make sure they ring cleanly under the capo.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Learn the picking pattern phrase by phrase <span class="step-time">15 min</span></div><div class="step-desc">Watch the tutorial with the capo on. Pause after each phrase and copy it. The pattern has a flowing, arpeggiated quality — let each note sustain into the next. Don't mute strings as you move between chords. The sustained, overlapping notes are what give Holocene its sound.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Play through the verse twice <span class="step-time">8 min</span></div><div class="step-desc">Whatever you've learned, play it twice through continuously. Slow is fine. The atmosphere of this song comes through even at half speed.</div></div></div>
+            <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">F barre chord <span class="step-time">2 min</span></div><div class="step-desc">Two minutes. You should be hearing real improvement by week 9.</div></div></div>
+          </div>
+          <a class="video-link" href="https://www.youtube.com/watch?v=tD2XdKL77tQ" target="_blank">▶ Holocene tutorial</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card" id="p2d10">
+      <div class="day-header" onclick="toggleDay('p2d10')">
+        <div class="day-num dn-song">D50</div>
+        <div class="day-info"><div class="day-title">Phase 2 graduation — record and compare</div><div class="day-subtitle">Full performance of your best Phase 2 song</div></div>
+        <span class="day-duration">35 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>Phase 2 graduation.</strong> Same format as Phase 1 — record, compare, celebrate.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Play the F barre chord — hear the progress <span class="step-time">3 min</span></div><div class="step-desc">Play the F barre chord and really listen. Compare it to week 5 day 1. Most strings should ring by now. The ones that don't will clear up in Phase 3.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Record your best Phase 2 song <span class="step-time">10 min</span></div><div class="step-desc">Choose whichever of Skinny Love, The Stable Song, or Holocene you've made the most progress on. Record a full performance. One take, no stopping.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Compare Phase 1 graduation recording to today <span class="step-time">5 min</span></div><div class="step-desc">Watch Work Song from Day 20, then your fingerpicked recording from today. The technical gap is enormous. You went from strumming open chords to playing fingerpicked folk music in 6 weeks.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Pentatonic improvisation on electric — free play <span class="step-time">12 min</span></div><div class="step-desc">Switch to electric. Clean tone. Put on an Am backing track. Improvise freely using the pentatonic box. No rules — just play notes that feel right. This is the John Mayer tradition you're stepping into.</div></div></div>
+            <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">Set Phase 3 intentions <span class="step-time">5 min</span></div><div class="step-desc">Write down the one song from the Phase 3 roadmap you want to play most by week 20. Make it your north star. Mine it for motivation every time Phase 3 feels hard.</div></div></div>
+          </div>
+          <div class="tip-box">You enter Phase 3 with: 6 open chords, Fmaj7, a developing F barre chord, Travis picking, the pentatonic scale, power chords, a capo, and 3+ complete songs. You are no longer a beginner. You are an early intermediate guitarist.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================ PHASE 3 ============================================================ -->
+<div id="p3" class="phase">
+<div class="container">
+  <div class="phase-hdr">
+    <h2>Phase 3 — Expand (Weeks 11–20)</h2>
+    <p>Full barre chords, advanced strumming dynamics, lead guitar, and the theory to understand any song by ear. By the end of this phase you'll be able to pick up any chord chart for a song in your genre and play it within a few practice sessions. The graduation song is Gravity by John Mayer — one of the most expressive songs ever written for solo guitar.</p>
+    <div class="phase-meta">
+      <span class="meta-chip chip-amber">Weeks 11–20</span>
+      <span class="meta-chip chip-teal">35–50 min/day</span>
+      <span class="meta-chip chip-teal">Both guitars</span>
+      <span class="meta-chip chip-teal">5 days/week</span>
+    </div>
+  </div>
+
+  <div class="week-section">
+    <div class="week-label">Weeks 11–13 — Barre chords and capo mastery</div>
+
+    <div class="day-card" id="p3d1">
+      <div class="day-header" onclick="toggleDay('p3d1')">
+        <div class="day-num dn-skill">D51</div>
+        <div class="day-info"><div class="day-title">E-shape barre chord — moveable major chord</div><div class="day-subtitle">One shape, every major chord on the neck</div></div>
+        <span class="day-duration">40 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>The E-shape barre chord is the key to the entire fretboard.</strong> You know how to play E major open. Barre your index across all strings and slide the whole shape up the neck — every position gives you a new major chord. G major at fret 3. A major at fret 5. B major at fret 7. The same one shape gives you every major chord that exists.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Tune + full warm-up <span class="step-time">7 min</span></div><div class="step-desc">G → C → Am → Em with strumming pattern. Then Travis picking on Em and Am. Then F barre chord attempts. Full warm-up before attempting new barre work.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">E-shape barre at fret 5 (A major) <span class="step-time">12 min</span></div><div class="step-desc">Index bars all 6 strings at fret 5. Ring finger on string 5, fret 7. Pinky on string 4, fret 7. Middle finger on string 3, fret 6. (This is the same layout as F major but moved up 4 frets.) This is A major. Pluck each string. Work on any buzzing strings. Your F chord practice has been preparing your index for exactly this. The higher up the neck you play, the easier barre chords feel — so fret 5 is actually easier than fret 1 for the F chord.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Slide the shape to G (fret 3) and B (fret 7) <span class="step-time">10 min</span></div><div class="step-desc">Move the exact same shape to fret 3 — G major barre chord. Then fret 7 — B major. Strum each and fix buzzes. Then practice: G (fret 3) → A (fret 5) → B (fret 7) in sequence. Notice how the same shape gives you three different chords just by moving your hand position.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">E-shape minor barre chord <span class="step-time">8 min</span></div><div class="step-desc">Same barre position, but base the shape on Em instead of E major. Remove the middle finger from string 3 — that's it. At fret 5: Am barre. At fret 7: Bm barre. At fret 2: F#m. These minor barre chords open up keys that are very difficult without them — including John Mayer's key of C#m in Slow Dancing in a Burning Room.</div></div></div>
+            <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">F barre chord at fret 1 — direct practice <span class="step-time">3 min</span></div><div class="step-desc">After warming up the barre chord at easier positions, return to fret 1 for the F chord. It should ring more clearly now that your index finger has been working at higher frets.</div></div></div>
+          </div>
+          <a class="video-link" href="https://www.youtube.com/watch?v=c0QoSiGpXhI" target="_blank">▶ Barre chord masterclass</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card" id="p3d2">
+      <div class="day-header" onclick="toggleDay('p3d2')">
+        <div class="day-num dn-skill">D53</div>
+        <div class="day-info"><div class="day-title">Capo mastery — playing in any key with open shapes</div><div class="day-subtitle">How Hozier and Mumford & Sons use the capo</div></div>
+        <span class="day-duration">35 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>The capo is not a crutch — it's a creative tool.</strong> Professional guitarists use capos constantly because they change the timbre and register of the guitar, not just the key. Hozier's Take Me to Church with a capo on fret 1 sounds different from playing the same chord shapes without the capo, even though the notes are only one semitone apart. Understanding this gives you control over your sound.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Warm up — barre chord work from Day 51 <span class="step-time">8 min</span></div><div class="step-desc">E-shape major at fret 3, 5, and 7. E-shape minor at fret 5. Then F barre at fret 1. Warm up the full range.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Understand capo transposition <span class="step-time">5 min</span></div><div class="step-desc">Capo 1 = everything sounds one semitone higher. Capo 2 = one whole step higher. Capo 5 = everything sounds a perfect 4th higher. If you play a G chord shape with capo 5, you're playing a C chord sound. If you play Am shape with capo 1, you're playing A#m (Bbm). Write this down: Capo position + open chord shape = actual chord sound. Google "capo chord transposition chart" for a reference.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Learn Take Me to Church setup — capo 1 <span class="step-time">10 min</span></div><div class="step-desc">Place capo on fret 1. The verse uses Am-shape (sounds Bbm), G-shape (sounds Ab), C-shape (sounds Db), F-shape (sounds Gb/F). Practice the verse chord progression slowly with the capo on. Notice how familiar the shapes feel even though the sound is completely different from what you'd expect.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Learn The Cave setup — capo 5 <span class="step-time">10 min</span></div><div class="step-desc">Remove capo from fret 1, place on fret 5. The Cave uses G, D, Em, C shapes — all chords you know in their open positions. Practice the driving strum: all downstrokes at first, then add the muted upstroke technique. Hold your strumming hand loosely against the strings mid-strum for the percussive "chunk" sound.</div></div></div>
+            <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">Play along with The Cave recording <span class="step-time">2 min</span></div><div class="step-desc">Capo 5. Play the chords along with the Mumford & Sons recording. Feel the driving momentum of that strumming. You're playing a song you've heard thousands of times.</div></div></div>
+          </div>
+          <a class="video-link" href="https://www.youtube.com/watch?v=FzFRpCYRMVQ" target="_blank">▶ How to use a capo</a>
+          <a class="video-link" href="https://www.youtube.com/watch?v=YITQSb_xR9Y" target="_blank">▶ The Cave tutorial</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card" id="p3d3">
+      <div class="day-header" onclick="toggleDay('p3d3')">
+        <div class="day-num dn-song">D57</div>
+        <div class="day-info"><div class="day-title">Take Me to Church — full song breakdown</div><div class="day-subtitle">Dynamics, drama, and Hozier's signature sound</div></div>
+        <span class="day-duration">40 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>Take Me to Church is a masterclass in dynamics.</strong> The verse is quiet and sparse. The chorus is powerful and driving. Learning to control this contrast — without an amp or a band behind you — is what separates interesting guitar playing from merely correct guitar playing.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Tune + capo 1 + warm up chord shapes <span class="step-time">5 min</span></div><div class="step-desc">Capo 1. Play the verse chord progression five times through. Make sure all chord shapes ring cleanly under the capo.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Verse — quiet fingerpicking version <span class="step-time">10 min</span></div><div class="step-desc">The verse of Take Me to Church works beautifully as a fingerpicked arrangement — thumb on bass strings, fingers picking the higher strings. Practice this approach for the verse chords. Keep your picking hand very light. The verse should feel like it could fall apart at any moment.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Chorus — aggressive strumming with dynamics <span class="step-time">10 min</span></div><div class="step-desc">The chorus switches to full strumming: D-DU-UDU pattern at a higher intensity. Practice accenting beats 2 and 4 by hitting those strums harder. The physical gesture of strumming harder when the music calls for it — not just playing louder — is what makes a performance feel alive.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Play verse → chorus transition 5 times <span class="step-time">10 min</span></div><div class="step-desc">The verse-to-chorus shift is the emotional heart of the song. Practice just that transition — last chord of the verse → first chord of the chorus with the strumming pattern ramping up. Do it five times. The drama of that shift should feel deliberate and powerful.</div></div></div>
+            <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">Play the full song once through <span class="step-time">5 min</span></div><div class="step-desc">Full song, beginning to end. No stopping. Focus on the dynamic contrast between verse and chorus.</div></div></div>
+          </div>
+          <a class="video-link" href="https://www.youtube.com/watch?v=s6J3OGjU_xE" target="_blank">▶ Take Me to Church tutorial</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="week-section">
+    <div class="week-label">Weeks 14–17 — Lead guitar and John Mayer territory</div>
+
+    <div class="day-card" id="p3d4">
+      <div class="day-header" onclick="toggleDay('p3d4')">
+        <div class="day-num dn-skill">D65</div>
+        <div class="day-info"><div class="day-title">String bending and vibrato — electric expression</div><div class="day-subtitle">The most expressive techniques in guitar</div></div>
+        <span class="day-duration">40 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>Bending a string is the moment guitar starts to sound like a human voice.</strong> When John Mayer bends a note, it cries. It pleads. It sings. This is not technique — it's expression. And you can start developing it today on your electric guitar.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Electric guitar, clean tone, tuned and ready <span class="step-time">3 min</span></div><div class="step-desc">Plug in. Clean tone — no gain yet. The cleaner the tone, the more honest the feedback on your bends.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Your first bend — string 2, fret 7 <span class="step-time">10 min</span></div><div class="step-desc">Fret string 2 (B string) at fret 7 with your ring finger, supporting with middle and index behind it. Push the string upward (toward string 1) until the pitch rises by a whole step — the sound of fret 9. The goal: fret 7 pushed up should sound identical to fret 9 unpushed. Use your whole wrist to rotate the push — not just your finger. Play the target note (fret 9) first so your ear knows where to aim.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Vibrato — the wavering voice of the guitar <span class="step-time">10 min</span></div><div class="step-desc">Fret any note with your ring finger. Push the string up slightly and release, up and release, rhythmically. The pitch should waver slightly above and back to the original. This is vibrato. It should be controlled and even — not frantic. John Mayer's vibrato is wide and slow. Listen to the intro of Gravity and watch his left hand. Practice on string 2, fret 8, for 10 minutes of controlled vibrato.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Apply to the pentatonic scale <span class="step-time">12 min</span></div><div class="step-desc">Put on an Am backing track. Play from the pentatonic box 1 (fret 5). Add bends and vibrato to any notes that feel right. There are no wrong notes in the pentatonic scale over an Am chord. Play slowly and expressively. This is improvisation with technique.</div></div></div>
+            <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">Listen to Slow Dancing in a Burning Room intro <span class="step-time">5 min</span></div><div class="step-desc">This is your Phase 3 lead guitar target. Listen to every bend and vibrato in the intro riff. You can now identify exactly what Mayer is doing. You are close to being able to play it.</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card" id="p3d5">
+      <div class="day-header" onclick="toggleDay('p3d5')">
+        <div class="day-num dn-song">D70</div>
+        <div class="day-info"><div class="day-title">Slow Dancing in a Burning Room — intro riff</div><div class="day-subtitle">John Mayer's most learnable lead guitar passage</div></div>
+        <span class="day-duration">45 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>The intro to Slow Dancing is one of the most beautiful 16 bars in modern guitar.</strong> It uses C#m — a key that requires the barre chords you've been building. The lead melody is largely pentatonic-based with expressive bends. This is the song that will make people stop and listen.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Electric, clean tone, tuned <span class="step-time">3 min</span></div><div class="step-desc">Electric guitar, clean tone. Tune carefully — C#m is not a forgiving key for tuning imperfections.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Warm up — pentatonic improvisation and bends <span class="step-time">7 min</span></div><div class="step-desc">Five minutes of Am pentatonic improvisation with bends and vibrato. Then two minutes of targeted bend practice on string 2.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Learn the intro riff — first 4 bars only <span class="step-time">20 min</span></div><div class="step-desc">Watch the tutorial. Learn only bars 1–4 today. Every note, every bend, every vibrato. Play it at 50% speed until the notes are correct. Then 60%. Then 70%. Do not move to bar 5 until bars 1–4 are clean at 70% speed. This section-by-section approach is how professional guitarists learn difficult passages.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Play bars 1–4 with the recording at slow speed <span class="step-time">10 min</span></div><div class="step-desc">Use a slow-downer app (Amazing Slow Downer or YouTube's speed control) to play the song at 60–70% speed. Play along with Mayer. Matching the feel and timing of his bends is the goal — not just the notes.</div></div></div>
+            <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">Rest and listen <span class="step-time">5 min</span></div><div class="step-desc">Listen to the full song once through. Think of it as a destination you're walking toward. You've just taken the first steps.</div></div></div>
+          </div>
+          <a class="video-link" href="https://www.youtube.com/watch?v=vp8P_cpAqjw" target="_blank">▶ Slow Dancing in a Burning Room tutorial</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card" id="p3d6">
+      <div class="day-header" onclick="toggleDay('p3d6')">
+        <div class="day-num dn-theory">D74</div>
+        <div class="day-info"><div class="day-title">Playing by ear — identifying chords and progressions</div><div class="day-subtitle">The skill that makes you an independent musician</div></div>
+        <span class="day-duration">35 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>Playing by ear isn't magic — it's a trainable skill.</strong> You've been building the foundation for it since Phase 1. Today you begin the deliberate practice of identifying what you're hearing and translating it to the guitar. This is the skill that makes you truly independent as a musician.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Identify major vs minor by ear <span class="step-time">8 min</span></div><div class="step-desc">Put on shuffle from your playlist. For each song, within the first 10 seconds, decide: does it sound major (bright) or minor (dark/emotional)? Write down your guess and the song name. After 5 songs, look up the key. How many did you get right? Hozier, Bon Iver, and Gregory Alan Isakov are mostly minor. John Mayer mixes both.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Find the tonic chord <span class="step-time">10 min</span></div><div class="step-desc">Choose a simple song from your playlist. Play different notes on string 6 of your guitar — low E string. Hum along with the song until you find the note that sounds like "home" — where the melody feels resolved. That note is likely the root of the key. If it's at fret 3, the song is in G. Fret 5 = A. Fret 0 (open) = E.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Figure out a simple song — Flightless Bird or Stable Song <span class="step-time">12 min</span></div><div class="step-desc">Choose one of these songs. Try to find the chords by ear — use the key you identified, try the chords that belong in that key, and trust your ear to tell you when you've found the right one. It's okay to look up the answer afterward — the process of searching is the practice.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Reflect on how far your ear has come <span class="step-time">5 min</span></div><div class="step-desc">In Phase 1, you couldn't identify a chord change by ear. Today you're finding keys and chords of songs you love. This is real musical skill. It keeps developing for the rest of your life as a musician.</div></div></div>
+          </div>
+          <a class="video-link" href="https://www.youtube.com/watch?v=RlPNh_PBZb4" target="_blank">▶ Playing guitar by ear (beginner)</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="week-section">
+    <div class="week-label">Weeks 18–20 — Gravity and graduation</div>
+
+    <div class="day-card" id="p3d7">
+      <div class="day-header" onclick="toggleDay('p3d7')">
+        <div class="day-num dn-song">D85</div>
+        <div class="day-info"><div class="day-title">Gravity — John Mayer (full song approach)</div><div class="day-subtitle">Your graduation song — blues, soul, and expression</div></div>
+        <span class="day-duration">50 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>Gravity is your graduation song for a reason.</strong> It requires everything you've built: barre chords, expressive bending, vibrato, dynamics, pentatonic soloing, and the ability to stay in time while expressing yourself. Playing Gravity well is proof that you're no longer a beginner in any sense of the word.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Full warm-up — 10 minutes <span class="step-time">10 min</span></div><div class="step-desc">Barre chords (E-shape at fret 3, 5, 7). Pentatonic scale improvisation. Bends and vibrato on string 2. Then: Take Me to Church chorus strumming to warm up your strumming arm. You need everything working before Gravity.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Learn the chord progression <span class="step-time">10 min</span></div><div class="step-desc">Gravity is in G major: G, D/F#, Em, C, D. The D/F# (D with F# bass note) is the distinctive sound — index finger on string 6, 2nd fret for the bass note, then a D chord shape. Practice the full progression: G → D/F# → Em → C → D. Strum slowly and let every chord ring.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Learn the intro riff <span class="step-time">15 min</span></div><div class="step-desc">The Gravity intro is played on electric with clean-to-slightly-driven tone. Watch the tutorial. The melody is pentatonic-based in G major. Learn it phrase by phrase, 4 bars at a time. The bends need to be in tune — really listen to where the pitch needs to land.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Play the chord progression with light improvisation <span class="step-time">10 min</span></div><div class="step-desc">Strum the Gravity chord progression while occasionally adding pentatonic melody notes between chord strums. This is the hybrid picking / chord-melody approach that defines Mayer's solo guitar style. Don't overthink it — just let notes happen.</div></div></div>
+            <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">Record a 2-minute version of Gravity <span class="step-time">5 min</span></div><div class="step-desc">Record whatever you can play of Gravity — the intro riff, the chord progression, or both. This is your benchmark for week 20.</div></div></div>
+          </div>
+          <a class="video-link" href="https://www.youtube.com/watch?v=Np7SJF1TPOU" target="_blank">▶ Gravity tutorial</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card" id="p3d8">
+      <div class="day-header" onclick="toggleDay('p3d8')">
+        <div class="day-num dn-song">D100</div>
+        <div class="day-info"><div class="day-title">Graduation day — full performance and reflection</div><div class="day-subtitle">20 weeks. You made it.</div></div>
+        <span class="day-duration">60 min</span>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">
+        <div class="lesson-content">
+          <div class="lesson-intro"><strong>This is your 20-week graduation session.</strong> Today is a performance day — no drills, no exercises, just playing music. You'll record three songs and watch them alongside your very first Day 1 recording.</div>
+          <div class="step-list">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Warm up freely for 10 minutes <span class="step-time">10 min</span></div><div class="step-desc">No structure. Just play whatever feels good. Chord shapes, pentatonic lines, fingerpicking patterns. Let your hands warm up on their own terms today.</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Record Work Song — your Phase 1 song <span class="step-time">10 min</span></div><div class="step-desc">Play Work Song by Hozier. The song you first attempted in week 2, haltingly, with two chords. Play it now as the musician you've become.</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Record Holocene or The Stable Song — your fingerpicking song <span class="step-time">15 min</span></div><div class="step-desc">The most complete performance you can give of whichever fingerpicking song you've worked on most. Take your time. Let it breathe. Play it like you mean it.</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Record Gravity — your graduation song <span class="step-time">15 min</span></div><div class="step-desc">Everything you have. The intro riff, the chord progression, the solo fragment you've learned. One continuous take. This is Gravity.</div></div></div>
+            <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">Watch Day 1 recording and graduation recordings back to back <span class="step-time">10 min</span></div><div class="step-desc">Day 1: Em chord, slightly buzzing, counted out loud. Day 100: Three complete songs across 20 weeks of daily practice. The person playing on Day 1 didn't know any of this was possible. You proved them wrong.</div></div></div>
+          </div>
+          <div class="tip-box"><strong>Where you go from here:</strong> You are now a real guitarist. The skills you've built — chord vocabulary, fingerpicking, barre chords, basic lead playing, music theory, and ear training — are the foundation for everything that comes next. Keep a weekly song goal. Keep recording yourself. Keep playing music you love. The 20 weeks are over. The guitar journey has barely started.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+function showPhase(id, btn) {
+  document.querySelectorAll('.phase').forEach(p => p.classList.remove('visible'));
+  document.querySelectorAll('.pnav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('visible');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function toggleDay(id) {
+  const card = document.getElementById(id);
+  card.classList.toggle('open');
+}
+function toggleCheck(el) {
+  el.classList.toggle('done');
+}
+</script>
+</body>
+</html>
